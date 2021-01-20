@@ -1,0 +1,68 @@
+// font imports
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;600;700;800&display=swap');
+
+// global vars
+$normalTextColor: black;
+$highlightColor: red;
+
+
+// styles
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html {
+  font-size: 16px;
+  
+}
+
+*::selection {
+	background: $highlightColor; /* WebKit/Blink Browsers */
+}
+*::-moz-selection {
+	background: $highlightColor; /* Gecko Browsers */
+}
+
+body {
+  font-family: 'Vollkorn', serif, Roboto, sans-serif;
+	background-color: rgb(238, 238, 238);
+	color: $normalTextColor;
+	font-size: 62.5%;
+}
+
+h1 {
+	font-size: 2.6rem;
+}
+
+li,
+button,
+label,
+input,
+p {
+	font-size: 1.5rem;
+	color: $normalTextColor;
+}
+
+p.marg-bottom {
+	margin-bottom: 1.2rem;
+}
+
+h2 {
+	font-size: 4.5rem;
+}
+
+h3 {
+	font-size: 2.7rem;
+	font-weight: normal;
+}
+
+h4,
+h5 {
+	font-size: 2.5rem;
+}
+
+a {
+	color: $normalTextColor;
+	text-decoration: none;
+}
