@@ -1,12 +1,13 @@
-import React from 'react';
-import './App.scss';
+import React from 'react'
+import './App.scss'
+import MapPage from './components/pages/map-page/map-page.component'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <h1>Let's do this!</h1>
+    <div>
+      <MapPage />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
