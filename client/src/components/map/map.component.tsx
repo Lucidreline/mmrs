@@ -8,13 +8,20 @@ export default class Map extends Component {
     return (
       <section className="map">
         <MapContainer
-          center={[34.7, -118.2436849]}
+          center={[34.8, -118.2436849]}
           zoom={8}
           scrollWheelZoom={true}
         >
+          {/* watercolor map */}
           <TileLayer
-            attribution='<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.jawg.io/jawg-matrix/{z}/{x}/{y}{r}.png?access-token=aiqfl4my7zdciGDKZzCLdFNwIg987zlGytgsPgAqbWqFy2maSL5ho678A8qa7hWC"
+            attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png"
+          />
+
+          {/* street labels */}
+          <TileLayer
+            attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}{r}.png"
           />
 
           <Marker position={[35.6082212, -118.484579]}>
