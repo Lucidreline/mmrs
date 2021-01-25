@@ -1,17 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Circle, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 
-import { ILocation } from '../pages/map-page/map-page.component'
-
 import './map.styles.scss'
 
-interface IProps {
-  locations: ILocation[]
-}
+const Map = () => {
+  const [Locations] = useState(() => {
+    // fetch data here
+    return [
+      {
+        lat: 33.888,
+        lon: -118.309,
+        radius: 5000,
+        _id: 'whaat',
+      },
+      {
+        lat: 33.988,
+        lon: -118.409,
+        radius: 10000,
+        _id: 'whaat no way',
+      },
+      {
+        lat: 34,
+        lon: -118.509,
+        radius: 15000,
+        _id: 'seriously?',
+      },
+    ]
+  })
 
-const Map = (props: IProps) => {
-  console.log(props)
   const history = useHistory()
   return (
     <section className="map">
@@ -36,7 +53,7 @@ const Map = (props: IProps) => {
           <Popup>Our First Kiss</Popup>
         </Marker>
 
-        {props.locations.map((location) => (
+        {Locations.map((location) => (
           <Circle
             key={location._id}
             center={[location.lat, location.lon]}
