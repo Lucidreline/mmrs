@@ -1,0 +1,26 @@
+{
+  "name": "clouds",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.ts",
+  "scripts": {
+    "server": "nodemon server --prefix server",
+    "client": "npm run start --prefix client",
+    "start": "npm run start --prefix server",
+    "build": "npm run build --prefix client && npm run build --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lucidreline/mmrs.git"
+  },
+  "author": "Lucidreline",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lucidreline/mmrs/issues"
+  },
+  "homepage": "https://github.com/Lucidreline/mmrs#readme",
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
