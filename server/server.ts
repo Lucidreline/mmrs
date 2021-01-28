@@ -20,4 +20,4 @@ app.get('*', (req, res) => {
   )
 })
 
-app.listen(3500, () => console.log('Server Online!'))
+app.listen(3050, () => console.log('Server Online!'))
