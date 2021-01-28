@@ -1,14 +1,11 @@
 import helmet from 'helmet'
 import express from 'express'
 import path from 'path'
+import config from 'config'
 
 const app = express()
 
 app.use(helmet())
-
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
 
 // serve static assets in front end
 app.use(express.static('../client/build'))
@@ -20,4 +17,6 @@ app.get('*', (req, res) => {
   )
 })
 
-app.listen(3050, () => console.log('Server Online!'))
+app.listen(config.get('port'), () =>
+  console.log(`Server Online on port ${config.get('port')}!`),
+)
