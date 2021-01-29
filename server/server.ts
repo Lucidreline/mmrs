@@ -12,14 +12,25 @@ app.use(helmet())
 // routes
 app.use('/api/locations', locationsRouter)
 
+app.get('/', (req, res) => {
+  res.redirect('/map')
+})
+
 // serve static assets in front end
 app.use(express.static('../client/build'))
 
-app.get('*', (req, res) => {
+app.get('/map', (req, res) => {
   res.setHeader(
     'Content-Security-Policy',
     "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';",
   )
+
+  res.sendFile(
+    path.resolve(__dirname, '../', '../', 'client', 'build', 'index.html'),
+  )
+})
+
+app.get('*', (req, res) => {
   res.sendFile(
     path.resolve(__dirname, '../', '../', 'client', 'build', 'index.html'),
   )
