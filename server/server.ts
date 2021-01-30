@@ -17,7 +17,7 @@ app.use(helmet())
 app.use(bodyParser.json())
 
 // routes
-app.use('/api/locations', locationsRouter)
+app.use('/api/adventures', adventuresRouter)
 app.use('/api/locations', locationsRouter)
 
 app.get('/', (req, res) => {
