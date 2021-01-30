@@ -23,5 +23,9 @@
   "devDependencies": {
     "concurrently": "^5.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/mongoose": "^5.10.3",
+    "mongoose": "^5.11.14",
+    "ts-mongoose": "0.0.24"
+  }
 }

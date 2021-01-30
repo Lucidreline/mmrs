@@ -1,15 +1,23 @@
 import helmet from 'helmet'
+import bodyParser from 'body-parser'
 import express from 'express'
-import path from 'path'
 import config from 'config'
+import path from 'path'
 
+import connectDB from './utils/connectDB'
+
+import { router as adventuresRouter } from './routes/adventures'
 import { router as locationsRouter } from './routes/locations'
+
+connectDB()
 
 const app = express()
 
 app.use(helmet())
+app.use(bodyParser.json())
 
 // routes
+app.use('/api/locations', locationsRouter)
 app.use('/api/locations', locationsRouter)
 
 app.get('/', (req, res) => {
