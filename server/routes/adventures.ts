@@ -11,6 +11,16 @@ const distance = (point1: number[], point2: number[]) => {
   )
 }
 
+// lists all adventures in the database
+router.get('/', async (req, res) => {
+  try {
+    res.json(await Adventure.find({})).status(200)
+  } catch (err) {
+    res.json({ err: err.message }).status(500)
+  }
+})
+
+// created a new adventure and a location if one is needed.
 router.post('/new', async (req, res) => {
   const { adventure, lon, lat } = req.body
 
@@ -49,9 +59,8 @@ router.post('/new', async (req, res) => {
     await locationNearAdventure.save()
 
     res.json(adventure).status(200)
-  } catch (error) {
-    console.log(error.message)
-    res.json({ msg: 'error' }).status(500)
+  } catch (err) {
+    res.json({ err: err.message }).status(500)
   }
 })
 
