@@ -1,35 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Circle, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import axios from 'axios'
 
 import './map.styles.scss'
 
 const Map = () => {
-  const [Locations] = useState(() => {
-    // fetch data here
-    return [
-      {
-        lat: 33.888,
-        lon: -118.309,
-        radius: 5000,
-        _id: 'whaat',
-      },
-      {
-        lat: 33.988,
-        lon: -118.409,
-        radius: 10000,
-        _id: 'whaat no way',
-      },
-      {
-        lat: 34,
-        lon: -118.509,
-        radius: 15000,
-        _id: 'seriously?',
-      },
-    ]
-  })
+  const [Locations, setLocation] = useState([
+    { _id: '22', lon: 34.8, lat: -118.3, radius: 100000 },
+  ])
+
+  useEffect(() => {
+    async function fetchLocations() {
+      const responce = await axios.get('http://localhost:3050/api/locations')
+      setLocation(responce.data)
+    }
+
+    fetchLocations()
+  }, [])
 
   const history = useHistory()
+
   return (
     <section className="map">
       <MapContainer

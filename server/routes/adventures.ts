@@ -29,10 +29,7 @@ router.post('/new', async (req, res) => {
     let locationNearAdventure = null
 
     for (let i = 0; i < locations.length; i++) {
-      const d = distance(
-        [parseInt(locations[i].lon), parseInt(locations[i].lat)],
-        [parseInt(lon), parseInt(lat)],
-      )
+      const d = distance([locations[i].lon, locations[i].lat], [lon, lat])
 
       if (d < 0.1) {
         locationNearAdventure = locations[i]
@@ -47,7 +44,7 @@ router.post('/new', async (req, res) => {
         lat,
 
         adventures: [],
-        radius: 10000,
+        radius: 12000,
       })
 
       adventure.location = locationNearAdventure._id

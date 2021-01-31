@@ -3,8 +3,10 @@ import bodyParser from 'body-parser'
 import express from 'express'
 import config from 'config'
 import path from 'path'
+import cors from 'cors'
 
 import connectDB from './utils/connectDB'
+import corsOptions from './utils/cors'
 
 import { router as adventuresRouter } from './routes/adventures'
 import { router as locationsRouter } from './routes/locations'
@@ -12,6 +14,11 @@ import { router as locationsRouter } from './routes/locations'
 connectDB()
 
 const app = express()
+
+const corsOrigins: string[] = config.get('originsAllowed')
+
+if (corsOrigins.length > 0) app.use(cors(corsOptions))
+else app.use(cors())
 
 app.use(helmet())
 app.use(bodyParser.json())

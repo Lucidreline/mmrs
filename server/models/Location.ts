@@ -2,16 +2,16 @@ import mongoose from 'mongoose'
 import { Id } from 'ts-mongoose/types/_shared'
 
 export interface ILocation extends mongoose.Document {
-  lon: string
-  lat: string
+  lon: number
+  lat: number
 
   adventures: Id[]
   radius: number
 }
 
 const LocationSchema = new mongoose.Schema({
-  lon: String,
-  lat: String,
+  lon: Number,
+  lat: Number,
 
   adventures: [mongoose.Schema.Types.ObjectId],
   radius: Number,
