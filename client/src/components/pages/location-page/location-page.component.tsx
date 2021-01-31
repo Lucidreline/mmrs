@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 export const LocationPage = () => {
+  const [Location, setLocation] = useState({ lon: 0, lat: 0 })
+
   const [Adventures, setAdventures] = useState([
     { _id: '0', name: '', description: '', date: '' },
   ])
@@ -10,22 +12,25 @@ export const LocationPage = () => {
   const urlArr = useLocation().pathname.split('/')
   const locationId = urlArr[urlArr.length - 1]
   useEffect(() => {
-    async function fetchAdventures() {
+    async function fetchlocation() {
       const responce = await axios.get(
-        'http://localhost:3050/api/adventures/by-location?',
+        'http://localhost:3050/api/locations/id-and-adventures',
         {
           params: {
             locationId: locationId,
           },
         },
       )
-      console.log(responce)
-      setAdventures(responce.data)
+      setAdventures(responce.data.adventures)
+      setLocation(responce.data.location)
     }
-    fetchAdventures()
+    fetchlocation()
   }, [locationId])
   return (
     <div>
+      <h1>
+        ({Location.lat}, {Location.lon})
+      </h1>
       {Adventures.map(({ _id, name, description, date }) => (
         <div key={_id}>
           <h1>{name}</h1>

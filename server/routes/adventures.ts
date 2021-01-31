@@ -62,16 +62,4 @@ router.post('/new', async (req, res) => {
   }
 })
 
-// returns all adventures that have the location given in
-router.get('/by-location', async (req, res) => {
-  try {
-    const adventures = await Adventure.find({
-      location: (req.query as any).locationId,
-    })
-    res.json(adventures).status(200)
-  } catch (err) {
-    res.json({ err: err.message }).status(500)
-  }
-})
-
 export { router }
