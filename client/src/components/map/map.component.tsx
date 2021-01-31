@@ -44,17 +44,17 @@ const Map = () => {
           <Popup>Our First Kiss</Popup>
         </Marker>
 
-        {Locations.map((location) => (
+        {Locations.map(({ _id, lat, lon, radius }) => (
           <Circle
-            key={location._id}
-            center={[location.lat, location.lon]}
-            radius={location.radius}
+            key={_id}
+            center={[lat, lon]}
+            radius={radius}
             color="#17c0eb"
             fillColor="#18dcff"
             fillOpacity={0.4}
             eventHandlers={{
               click: () => {
-                history.push(`/location/${location._id}`)
+                history.push(`/location/${_id}`)
               },
             }}
           />

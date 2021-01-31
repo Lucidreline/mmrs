@@ -5,7 +5,7 @@ export interface IAdventure extends mongoose.Document {
   name: string
   description: string
   date: string
-  location: Id // id of its location model
+  location: mongoose.Types.ObjectId // id of its location model
   prictures: string[] // links to images of that day
 }
 

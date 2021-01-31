@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import mongoose from 'mongoose'
 
 const router = Router()
 
@@ -56,6 +57,18 @@ router.post('/new', async (req, res) => {
     await locationNearAdventure.save()
 
     res.json(adventure).status(200)
+  } catch (err) {
+    res.json({ err: err.message }).status(500)
+  }
+})
+
+// returns all adventures that have the location given in
+router.get('/by-location', async (req, res) => {
+  try {
+    const adventures = await Adventure.find({
+      location: (req.query as any).locationId,
+    })
+    res.json(adventures).status(200)
   } catch (err) {
     res.json({ err: err.message }).status(500)
   }

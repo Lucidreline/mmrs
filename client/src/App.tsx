@@ -3,9 +3,8 @@ import './App.scss'
 
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-import AdventuresPage from './components/pages/adventures-page/adventures-page.component'
-
 import MapPage from './components/pages/map-page/map-page.component'
+import { LocationPage } from './components/pages/location-page/location-page.component'
 
 const App = () => {
   return (
@@ -16,7 +15,7 @@ const App = () => {
         </Route>
 
         <Route exact path="/map" component={MapPage} />
-        <Route exact path="/adventures" component={AdventuresPage} />
+        <Route path="/location" component={LocationPage} />
       </Switch>
     </div>
   )

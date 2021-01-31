@@ -5,7 +5,7 @@ export interface ILocation extends mongoose.Document {
   lon: number
   lat: number
 
-  adventures: Id[]
+  adventures: mongoose.Types.ObjectId[]
   radius: number
 }
 
