@@ -23,6 +23,26 @@ const Map = () => {
 
   const history = useHistory()
 
+  let circles: any[] = []
+
+  Locations.forEach(({ _id, lat, lon, radius }) => {
+    circles.push(
+      <Circle
+        key={_id}
+        center={[lat, lon]}
+        radius={radius}
+        color="#17c0eb"
+        fillColor="#18dcff"
+        fillOpacity={0.4}
+        eventHandlers={{
+          click: () => {
+            history.push(`/location/${_id}`)
+          },
+        }}
+      />,
+    )
+  })
+
   return (
     <section className="map">
       <MapContainer
@@ -46,21 +66,7 @@ const Map = () => {
           <Popup>Our First Kiss</Popup>
         </Marker>
 
-        {Locations.map(({ _id, lat, lon, radius }) => (
-          <Circle
-            key={_id}
-            center={[lat, lon]}
-            radius={radius}
-            color="#17c0eb"
-            fillColor="#18dcff"
-            fillOpacity={0.4}
-            eventHandlers={{
-              click: () => {
-                history.push(`/location/${_id}`)
-              },
-            }}
-          />
-        ))}
+        {circles}
       </MapContainer>
     </section>
   )

@@ -14,8 +14,6 @@ connectDB()
 
 const app = express()
 
-const corsOrigins: string[] = config.get('originsAllowed')
-
 app.use(cors())
 
 app.use(helmet())
