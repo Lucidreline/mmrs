@@ -25,23 +25,23 @@ const Map = () => {
 
   let circles: any[] = []
 
-  Locations.forEach(({ _id, lat, lon, radius }) => {
+  for (let i = 0; i < Locations.length; i++) {
     circles.push(
       <Circle
-        key={_id}
-        center={[lat, lon]}
-        radius={radius}
+        key={Locations[i]._id}
+        center={[Locations[i].lat, Locations[i].lon]}
+        radius={Locations[i].radius}
         color="#17c0eb"
         fillColor="#18dcff"
         fillOpacity={0.4}
         eventHandlers={{
           click: () => {
-            history.push(`/location/${_id}`)
+            history.push(`/location/${Locations[i]._id}`)
           },
         }}
       />,
     )
-  })
+  }
 
   return (
     <section className="map">
