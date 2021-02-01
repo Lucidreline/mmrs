@@ -14,7 +14,7 @@ export const LocationPage = () => {
   useEffect(() => {
     async function fetchlocation() {
       const responce = await axios.get(
-        'http://localhost:3050/api/locations/id-and-adventures',
+        `${process.env.REACT_APP_API_ORIGIN}/api/locations/id-and-adventures`,
         {
           params: {
             locationId: locationId,

@@ -12,7 +12,9 @@ const Map = () => {
 
   useEffect(() => {
     async function fetchLocations() {
-      const responce = await axios.get('http://localhost:3050/api/locations')
+      const responce = await axios.get(
+        `${process.env.REACT_APP_API_ORIGIN}/api/locations`,
+      )
       setLocation(responce.data)
     }
 
