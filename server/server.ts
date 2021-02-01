@@ -6,7 +6,6 @@ import path from 'path'
 import cors from 'cors'
 
 import connectDB from './utils/connectDB'
-import corsOptions from './utils/cors'
 
 import { router as adventuresRouter } from './routes/adventures'
 import { router as locationsRouter } from './routes/locations'
@@ -17,8 +16,7 @@ const app = express()
 
 const corsOrigins: string[] = config.get('originsAllowed')
 
-if (corsOrigins.length > 0) app.use(cors(corsOptions))
-else app.use(cors())
+app.use(cors())
 
 app.use(helmet())
 app.use(bodyParser.json())
