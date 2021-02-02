@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import mongoose from 'mongoose'
+import config from 'config'
+import fetch from 'node-fetch'
 
 const router = Router()
 
@@ -39,10 +40,41 @@ router.post('/new', async (req, res) => {
     }
     if (locationNearAdventure == null) {
       // no locations near adventure, have to create a new location
+
+      let name = ''
+
+      await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${config.get(
+          'googleMapsApiKey',
+        )}`,
+      )
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.results.length > 0) {
+            const addressComponents = json.results[0].address_components
+
+            for (let i = 0; i < addressComponents.length; i++) {
+              if (addressComponents[i].types.includes('locality')) {
+                name = addressComponents[i].short_name
+                break
+              } else if (
+                addressComponents[i].types.includes(
+                  'administrative_area_level_2',
+                )
+              ) {
+                name = addressComponents[i].short_name
+                break
+              }
+            }
+          }
+        })
+
       locationNearAdventure = await Location.create({
         // creating it here because i need a location _id
-        lon,
         lat,
+        lon,
+
+        name,
 
         adventures: [],
         radius: 12000,
