@@ -1,10 +1,13 @@
+import axios from 'axios'
 import React, { FormEvent, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import Btn from '../btn/btn.component'
 import Input from '../input/input.component'
 
 import './adventure-form.styles.scss'
 
 const AdventureForm = () => {
+  const history = useHistory()
   const [FormData, setFormData] = useState({
     name: '',
     description: '',
@@ -23,11 +26,30 @@ const AdventureForm = () => {
     else e.currentTarget.classList.remove('valid')
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    //const { name, email, message } = this.state
+    const { name, description, lat, lon } = FormData
+    const adventure = {
+      name,
+      description,
+      date: 'today',
+      location: null,
+      pictures: ['pic 1', 'pic 2'],
+    }
 
     // send to api
+    await axios({
+      method: 'post',
+      url: `${process.env.REACT_APP_API_ORIGIN}/api/adventures/new`,
+      data: {
+        adventure,
+        lat,
+        lon,
+      },
+    }).then(() => {
+      // go back to map
+      history.push('/map')
+    })
   }
 
   return (

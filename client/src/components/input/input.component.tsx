@@ -31,6 +31,7 @@ const Input = (props: IProps) => {
         autoComplete="off"
         type="number"
         name={props.name}
+        step="0.00000001"
       />
       <label htmlFor={props.name}>
         <span>{props.placeholder}</span>
