@@ -7,10 +7,12 @@ import MapPage from './components/pages/map-page/map-page.component'
 import { LocationPage } from './components/pages/location-page/location-page.component'
 import AdventuresPage from './components/pages/adventures-page/adventures-page.component'
 import LocationsPage from './components/pages/locations-page/locations-page.component'
+import Header from './components/header/header.component'
 
 const App = () => {
   return (
     <div>
+      <Header />
       <Switch>
         <Route exact path="/">
           <Redirect to="/map" />
