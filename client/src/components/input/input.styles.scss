@@ -1,0 +1,123 @@
+@import '../../App.scss';
+
+.custom-text-input,
+.custom-text-area {
+  width: 65%; // this is changed with a media query in contact-us-form.styles.scss
+  position: relative;
+
+  input,
+  textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    color: black;
+    font-size: 1.6rem;
+    background-color: $backgroundColor;
+
+    &:focus + label span,
+    &.valid + label span {
+      color: $accentColor4;
+    }
+  }
+
+  label {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      transition: all 0.3s ease;
+    }
+
+    span {
+      position: absolute;
+      transition: all 0.3s ease;
+      left: 0;
+      padding-left: 0.5rem;
+      color: $accentColor4;
+    }
+  }
+}
+
+.custom-text-input {
+  height: 6rem;
+  overflow: hidden;
+  margin: 1.25rem auto 0 auto;
+
+  input {
+    padding: 2rem 0 0 2rem;
+
+    &:focus + label span,
+    &.valid + label span {
+      transform: translateY(-3rem);
+    }
+
+    &:focus + label::after,
+    &.valid + label::after {
+      transform: translateX(0%);
+    }
+  }
+
+  label {
+    border-bottom: 1px solid black;
+
+    &::after {
+      bottom: -1px;
+      border-bottom: 3px solid $accentColor4;
+      transform: translateX(-100%);
+    }
+
+    span {
+      bottom: 0.4rem;
+    }
+  }
+}
+
+.custom-text-area {
+  margin: 5rem auto 0 auto;
+
+  textarea {
+    height: 15rem;
+    resize: none;
+    padding: 0.9rem 0 0 2rem;
+
+    &:focus + label span,
+    &.valid + label span {
+      transform: translateY(-3rem);
+    }
+
+    &:focus + label,
+    &.valid + label {
+      border: none;
+    }
+
+    &:focus + label::after,
+    &.valid + label::after {
+      opacity: 1;
+    }
+  }
+
+  label {
+    top: 0;
+    border: 1px solid black;
+
+    &::after {
+      box-sizing: border-box;
+      top: 0;
+      opacity: 0;
+      border: $accentColor4 3px solid;
+    }
+
+    span {
+      top: 0.5rem;
+    }
+  }
+}

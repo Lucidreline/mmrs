@@ -51,8 +51,8 @@ const Map = () => {
             key={_id}
             center={[lat, lon]}
             radius={radius}
-            color="#17c0eb"
-            fillColor="#18dcff"
+            color=" #56a6e2"
+            fillColor="#6bc0ea"
             fillOpacity={0.4}
             eventHandlers={{
               click: () => {

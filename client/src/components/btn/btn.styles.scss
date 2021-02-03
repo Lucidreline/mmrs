@@ -1,0 +1,23 @@
+@import '../../App.scss';
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+
+  button {
+    background: none;
+    border: 2px solid $accentColor4;
+    border-radius: 6px;
+    color: $accentColor4;
+    padding: 0.75rem 4rem;
+    font-size: 1.6rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.025);
+      background: $accentColor4;
+      color: $backgroundColor;
+      box-shadow: -3px 4px 5px rgba(0, 0, 0, 0.35);
+    }
+  }
+}

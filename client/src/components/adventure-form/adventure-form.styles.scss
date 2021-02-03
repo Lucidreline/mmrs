@@ -1,0 +1,53 @@
+.needs-margin-top {
+  margin-top: 2rem;
+}
+
+.contact-us-form {
+  width: 80rem;
+  margin: auto;
+  border-radius: 6px;
+  box-shadow: -2px 3px 5px rgba(0, 0, 0, 0.4);
+  padding: 4rem 2rem;
+  background-color: white;
+  margin-top: 15rem;
+
+  .form-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2.5rem;
+    color: #c4a300;
+  }
+
+  .email-receipt {
+    text-align: center;
+    animation: transitionToReceipt 5s 1s;
+    animation-fill-mode: backwards;
+
+    h2 {
+      font-size: 2.5rem;
+      color: #c4a300;
+    }
+
+    i {
+      font-size: 3.5rem;
+      margin: 2rem 0;
+    }
+
+    .msg {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .contact-us-form {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 625px) {
+  .contact-us-form .custom-text-input,
+  .contact-us-form .custom-text-area {
+    width: 90%;
+  }
+}

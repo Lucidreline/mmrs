@@ -8,6 +8,7 @@ import { LocationPage } from './components/pages/location-page/location-page.com
 import AdventuresPage from './components/pages/adventures-page/adventures-page.component'
 import LocationsPage from './components/pages/locations-page/locations-page.component'
 import Header from './components/header/header.component'
+import AdventureForm from './components/adventure-form/adventure-form.component'
 
 const App = () => {
   return (
@@ -17,10 +18,12 @@ const App = () => {
         <Route exact path="/">
           <Redirect to="/map" />
         </Route>
-
         <Route exact path="/map" component={MapPage} />
-        <Route path="/location" component={LocationPage} />
+
         <Route exact path="/adventures" component={AdventuresPage} />
+        <Route path="/adventure-form" component={AdventureForm} />
+
+        <Route path="/location" component={LocationPage} />
         <Route exact path="/locations" component={LocationsPage} />
       </Switch>
     </div>

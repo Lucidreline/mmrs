@@ -19,6 +19,9 @@ const Header = () => {
         <Link to="/locations" className="header-link">
           Locations
         </Link>
+        <Link to="/adventure-form" className="header-link">
+          Upload
+        </Link>
       </div>
     </nav>
   )

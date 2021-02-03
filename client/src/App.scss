@@ -2,8 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;600;700;800&display=swap');
 
 // global vars
-$normalTextColor: black;
-$highlightColor: red;
+$normalTextColor: #021417;
+$backgroundColor: #f2fcff;
+$accentColor1: #afebf8;
+$accentColor2: #8bd8f2;
+$accentColor3: #6bc0ea;
+$accentColor4: #66b2ec;
+$accentColor5: #56a6e2;
 
 // styles
 * {
@@ -16,15 +21,15 @@ html {
 }
 
 *::selection {
-  background: $highlightColor; /* WebKit/Blink Browsers */
+  background: $accentColor4; /* WebKit/Blink Browsers */
 }
 *::-moz-selection {
-  background: $highlightColor; /* Gecko Browsers */
+  background: $accentColor4; /* Gecko Browsers */
 }
 
 body {
   font-family: 'Vollkorn', serif, Roboto, sans-serif;
-  background-color: rgb(238, 238, 238);
+  background-color: $backgroundColor;
   color: $normalTextColor;
   font-size: 62.5%;
 }
