@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 export const LocationPage = () => {
-  const [Location, setLocation] = useState({ lon: 0, lat: 0 })
+  const [Location, setLocation] = useState({ lon: 0, lat: 0, name: '' })
 
   const [Adventures, setAdventures] = useState([
     { _id: '0', name: '', description: '', date: '' },
@@ -28,9 +28,10 @@ export const LocationPage = () => {
   }, [locationId])
   return (
     <div>
-      <h1>
+      <h1>{Location.name}</h1>
+      <span>
         ({Location.lat}, {Location.lon})
-      </h1>
+      </span>
       {Adventures.map(({ _id, name, description, date }) => (
         <div key={_id}>
           <h1>{name}</h1>

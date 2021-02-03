@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const AdventuresPage = () => {
   const [Adventures, setAdventures] = useState([
@@ -21,6 +21,7 @@ const AdventuresPage = () => {
         <div key={_id}>
           <h1>{name}</h1>
           <span>{date}</span>
+          <p>{description}</p>
         </div>
       ))}
     </div>
