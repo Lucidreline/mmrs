@@ -70,7 +70,7 @@ const AdventureForm = () => {
       <Input
         type="number"
         name="lon"
-        placeholder="longitude"
+        placeholder="Longitude"
         handleChange={handleChange}
       />
       <Input

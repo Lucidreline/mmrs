@@ -1,9 +1,9 @@
 // font imports
-@import url('https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
 
 // global vars
 $normalTextColor: #021417;
-$backgroundColor: #f2fcff;
+$backgroundColor: #f7fdff;
 $accentColor1: #afebf8;
 $accentColor2: #8bd8f2;
 $accentColor3: #6bc0ea;
@@ -28,10 +28,15 @@ html {
 }
 
 body {
-  font-family: 'Vollkorn', serif, Roboto, sans-serif;
   background-color: $backgroundColor;
   color: $normalTextColor;
   font-size: 62.5%;
+}
+
+textarea,
+body,
+input {
+  font-family: 'Quicksand', sans-serif, Roboto, sans-serif;
 }
 
 .container {
