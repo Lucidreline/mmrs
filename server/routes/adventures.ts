@@ -25,6 +25,7 @@ router.get('/', async (req, res) => {
 // created a new adventure and a location if one is needed.
 router.post('/new', async (req, res) => {
   const { adventure, lon, lat } = req.body
+  console.log(adventure)
 
   try {
     const locations: ILocation[] = await Location.find({}) // puts all locations into an array

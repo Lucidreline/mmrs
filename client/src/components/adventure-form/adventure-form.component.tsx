@@ -7,9 +7,17 @@ import DragAndDrop from '../drag-and-drop/drag-and-drop.component'
 
 import './adventure-form.styles.scss'
 
+interface IAdventureData {
+  name: string
+  description: string
+  lat: number
+  lon: number
+  files: File[]
+}
+
 const AdventureForm = () => {
   const history = useHistory()
-  const [FormData1, setFormData1] = useState({
+  const [AdventureData, setAdventureData] = useState<IAdventureData>({
     name: '',
     description: '',
     lat: 0,
@@ -19,7 +27,7 @@ const AdventureForm = () => {
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget
-    setFormData1((prevState) => {
+    setAdventureData((prevState) => {
       return { ...prevState, [name]: value }
     })
 
@@ -30,62 +38,75 @@ const AdventureForm = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    upload()
-    const { name, description, lat, lon } = FormData1
-    const adventure = {
-      name,
-      description,
-      date: 'today',
-      location: null,
-      pictures: ['pic 1', 'pic 2'],
-    }
+
+    const timeElapsed = Date.now()
+    const date = new Date(timeElapsed).toISOString()
+
+    const { name, description, lat, lon } = AdventureData
 
     // send to api
     await axios({
       method: 'post',
       url: `${process.env.REACT_APP_API_ORIGIN}/api/adventures/new`,
       data: {
-        adventure,
+        adventure: {
+          name,
+          description,
+          date,
+          location: null,
+          pictures: await grabImageUrls(),
+        },
         lat,
         lon,
       },
-    }).then(() => {
+    }).then((res) => {
+      console.log(res)
       // go back to map
       history.push('/map')
     })
   }
 
-  const [files, setFiles] = useState<File[]>([])
-
   const onDrop = (acceptedFiles: File[]) => {
-    setFiles(
-      acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        }),
-      ),
-    )
+    setAdventureData((prevState) => {
+      return {
+        ...prevState,
+        files: acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          }),
+        ),
+      }
+    })
   }
 
-  const upload = () => {
-    const uploadURL = 'https://api.cloudinary.com/v1_1/' // not valid
-    const uploadPreset = ''
+  const grabImageUrls = () => {
+    const uploadURL = 'https://api.cloudinary.com/v1_1/cheese-itz/image/upload'
+    const uploadPreset = 'mmrsProj'
 
-    files.forEach((file) => {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('upload_preset', uploadPreset)
-      axios({
-        url: uploadURL,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        data: formData,
-      })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+    let promises: any[] = []
+
+    AdventureData.files.forEach((file) => {
+      promises.push(
+        new Promise<string>(async (resolve) => {
+          const formData = new FormData()
+          formData.append('file', file)
+          formData.append('upload_preset', uploadPreset)
+          await axios({
+            url: uploadURL,
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            data: formData,
+          })
+            .then((res) => {
+              resolve(res.data.secure_url)
+            })
+            .catch((err) => console.log(err))
+        }),
+      )
     })
+    return Promise.all(promises)
   }
 
   return (
@@ -116,7 +137,7 @@ const AdventureForm = () => {
         handleChange={handleChange}
       />
 
-      <DragAndDrop files={files} onDrop={onDrop} />
+      <DragAndDrop files={AdventureData.files} onDrop={onDrop} />
 
       <Btn className="needs-margin-top" type="submit" color="orange">
         Upload
