@@ -26,6 +26,8 @@
   "dependencies": {
     "@types/mongoose": "^5.10.3",
     "mongoose": "^5.11.14",
-    "ts-mongoose": "0.0.24"
+    "react-dropzone": "^11.3.0",
+    "ts-mongoose": "0.0.24",
+    "uninstall": "0.0.0"
   }
 }

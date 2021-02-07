@@ -3,21 +3,23 @@ import React, { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Btn from '../btn/btn.component'
 import Input from '../input/input.component'
+import DragAndDrop from '../drag-and-drop/drag-and-drop.component'
 
 import './adventure-form.styles.scss'
 
 const AdventureForm = () => {
   const history = useHistory()
-  const [FormData, setFormData] = useState({
+  const [FormData1, setFormData1] = useState({
     name: '',
     description: '',
     lat: 0,
     lon: 0,
+    files: [],
   })
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget
-    setFormData((prevState) => {
+    setFormData1((prevState) => {
       return { ...prevState, [name]: value }
     })
 
@@ -28,7 +30,8 @@ const AdventureForm = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const { name, description, lat, lon } = FormData
+    upload()
+    const { name, description, lat, lon } = FormData1
     const adventure = {
       name,
       description,
@@ -49,6 +52,39 @@ const AdventureForm = () => {
     }).then(() => {
       // go back to map
       history.push('/map')
+    })
+  }
+
+  const [files, setFiles] = useState<File[]>([])
+
+  const onDrop = (acceptedFiles: File[]) => {
+    setFiles(
+      acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        }),
+      ),
+    )
+  }
+
+  const upload = () => {
+    const uploadURL = 'https://api.cloudinary.com/v1_1/' // not valid
+    const uploadPreset = ''
+
+    files.forEach((file) => {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('upload_preset', uploadPreset)
+      axios({
+        url: uploadURL,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        data: formData,
+      })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
     })
   }
 
@@ -79,6 +115,9 @@ const AdventureForm = () => {
         placeholder="Description"
         handleChange={handleChange}
       />
+
+      <DragAndDrop files={files} onDrop={onDrop} />
+
       <Btn className="needs-margin-top" type="submit" color="orange">
         Upload
       </Btn>
