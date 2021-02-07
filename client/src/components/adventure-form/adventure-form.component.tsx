@@ -39,8 +39,8 @@ const AdventureForm = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const timeElapsed = Date.now()
-    const date = new Date(timeElapsed).toISOString()
+    const today = Date.now()
+    const date = new Date(today).toString()
 
     const { name, description, lat, lon } = AdventureData
 
