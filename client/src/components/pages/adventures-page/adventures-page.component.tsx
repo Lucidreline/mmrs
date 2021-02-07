@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 const AdventuresPage = () => {
   const [Adventures, setAdventures] = useState([
-    { _id: '0', name: '', description: '', date: '' },
+    { _id: '0', name: '', description: '', date: '', pictures: [''] },
   ])
   useEffect(() => {
     async function fetchlocation() {
@@ -17,11 +17,14 @@ const AdventuresPage = () => {
 
   return (
     <div>
-      {Adventures.map(({ _id, name, description, date }) => (
+      {Adventures.map(({ _id, name, description, date, pictures }) => (
         <div key={_id}>
           <h1>{name}</h1>
           <span>{date}</span>
           <p>{description}</p>
+          {pictures.map((pic, index) => (
+            <img src={pic} key={index} height="300px" />
+          ))}
         </div>
       ))}
     </div>
