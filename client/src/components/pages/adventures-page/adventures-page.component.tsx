@@ -11,7 +11,7 @@ const AdventuresPage = () => {
       const responce = await axios.get(
         `${process.env.REACT_APP_API_ORIGIN}/api/adventures`,
       )
-      setAdventures(responce.data)
+      setAdventures(responce.data.reverse())
     }
     fetchlocation()
   }, [])

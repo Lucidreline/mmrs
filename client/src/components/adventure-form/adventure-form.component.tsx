@@ -138,7 +138,7 @@ const AdventureForm = () => {
 
       <DragAndDrop files={AdventureData.files} onDrop={onDrop} />
 
-      <Btn className="needs-margin-top" type="submit" color="orange">
+      <Btn size="lg" className="needs-margin-top" type="submit" color="orange">
         Upload
       </Btn>
     </form>

@@ -40,8 +40,12 @@ const LocationCard = ({ location }: IProps) => {
       <h3 className="location-name">{name}</h3>
       <span className="adventureCount">{adventureText} </span>
       <div className="btn-container">
-        <Btn onClick={mapBtnClicked}>Map</Btn>
-        <Btn onClick={detailsBtnClicked}>Details</Btn>
+        <Btn size="md" onClick={mapBtnClicked}>
+          Map
+        </Btn>
+        <Btn size="md" onClick={detailsBtnClicked}>
+          Details
+        </Btn>
       </div>
     </div>
   )

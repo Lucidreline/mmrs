@@ -1,25 +1,23 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import LocationCard from '../../location-card/location-card.component'
+import LocationCardList from '../../location-card-list/location-card-list.component'
 
 const LocationsPage = () => {
   const [Locations, setLocations] = useState([
-    { lat: 0, lon: 0, name: '', _id: '', adventures: [] },
+    { lat: 0, lon: 0, name: '', _id: '', adventures: [], mapImage: '' },
   ])
   useEffect(() => {
     async function fetchlocation() {
       const responce = await axios.get(
         `${process.env.REACT_APP_API_ORIGIN}/api/locations`,
       )
-      setLocations(responce.data)
+      setLocations(responce.data.reverse())
     }
     fetchlocation()
   }, [])
   return (
     <div>
-      {Locations.map((location) => (
-        <LocationCard key={location._id} location={location} />
-      ))}
+      <LocationCardList locations={Locations} />
     </div>
   )
 }
