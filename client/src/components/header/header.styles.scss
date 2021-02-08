@@ -1,10 +1,16 @@
 @import '../../App.scss';
 
+@import '../../App.scss';
+
 #nav-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 10vh;
+
+  .logo {
+    color: $accentColor4;
+  }
 
   .links-container {
     .header-link {

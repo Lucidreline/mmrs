@@ -19,8 +19,10 @@
   .location-name {
     transform: translateY(-55%);
     background-color: $backgroundColor;
-    padding: 0 1rem;
+    padding: 0 1.2rem;
     display: inline-block;
+    border: 3px solid $accentColor3;
+    border-radius: $borderRadius;
   }
   .adventureCount {
     font-size: 1rem;
