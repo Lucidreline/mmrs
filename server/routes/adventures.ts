@@ -1,11 +1,14 @@
 import { Router } from 'express'
 import config from 'config'
 import fetch from 'node-fetch'
+import axios from 'axios'
 
 const router = Router()
 
 import Adventure from '../models/Adventure'
 import Location, { ILocation } from '../models/Location'
+
+import Cloudinary from '../utils/cloudinary'
 
 const distance = (point1: number[], point2: number[]) => {
   return Math.sqrt(
@@ -24,8 +27,6 @@ router.get('/', async (req, res) => {
 
 // gets an adventure based on the id in the url
 router.get('/id', async (req, res) => {
-  console.log('you hit the right endpoint ' + (req.query as any).adventureId)
-
   try {
     if ((req.query as any).adventureId == undefined)
       throw 'An Adventure ID was not provided.'
@@ -41,7 +42,37 @@ router.get('/id', async (req, res) => {
 // created a new adventure and a location if one is needed.
 router.post('/new', async (req, res) => {
   const { adventure, lon, lat } = req.body
-  console.log(adventure)
+
+  const getMapImageFileStr = () => {
+    return new Promise<string>(async (resolve) => {
+      const url = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lon}&zoom=13&size=600x300&maptype=terrain&key=${config.get(
+        'googleMapsApiKey',
+      )}`
+      axios
+        .get(url, {
+          responseType: 'arraybuffer',
+        })
+        .then((response) =>
+          resolve(
+            'data:image/jpeg;base64,' +
+              Buffer.from(response.data, 'binary').toString('base64'),
+          ),
+        )
+    })
+  }
+
+  const getMapImageCloudinaryUrl = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await getMapImageFileStr().then(async (fileStr) => {
+          const uploadRes = await Cloudinary.uploader.upload(fileStr)
+          resolve(uploadRes.secure_url)
+        })
+      } catch (err) {
+        resolve(res.status(500))
+      }
+    })
+  }
 
   try {
     const locations: ILocation[] = await Location.find({}) // puts all locations into an array
@@ -92,6 +123,8 @@ router.post('/new', async (req, res) => {
         lon,
 
         name,
+
+        mapImage: await getMapImageCloudinaryUrl(),
 
         adventures: [],
         radius: 12000,

@@ -10,12 +10,13 @@ interface IProps {
     lon: number
     name: string
     _id: string
+    mapImage: string
     adventures: any[]
   }
 }
 
 const LocationCard = ({ location }: IProps) => {
-  const { lat, lon, name, _id, adventures } = location
+  const { lat, lon, name, _id, adventures, mapImage } = location
 
   const history = useHistory()
 
@@ -24,7 +25,7 @@ const LocationCard = ({ location }: IProps) => {
   const detailsBtnClicked = () => history.push(`/location/${_id}`)
 
   const backgroundMap = {
-    backgroundImage: `url(https://cdn.theatlantic.com/thumbor/tyKMqzswZRAU4DndlY4mJeA0P0M=/0x82:1000x603/960x500/media/old_wire/img/upload/2013/03/18/happydog/original.jpg)`,
+    backgroundImage: `url(${mapImage})`,
   }
 
   let adventureText = ''

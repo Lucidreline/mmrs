@@ -6,6 +6,8 @@ export interface ILocation extends mongoose.Document {
 
   name: string
 
+  mapImage: string
+
   adventures: mongoose.Types.ObjectId[]
   radius: number
 }
@@ -15,6 +17,8 @@ const LocationSchema = new mongoose.Schema({
   lon: Number,
 
   name: String,
+
+  mapImage: String,
 
   adventures: [mongoose.Schema.Types.ObjectId],
   radius: Number,
