@@ -7,16 +7,6 @@ import Menu from './menu.component'
 
 import './header.styles.scss'
 
-let coordinatesStr: string
-if (
-  process.env.REACT_APP_DEFAULT_LAT !== undefined &&
-  process.env.REACT_APP_DEFAULT_LON !== undefined
-) {
-  coordinatesStr = `${process.env.REACT_APP_DEFAULT_LAT},${process.env.REACT_APP_DEFAULT_LON}`
-} else {
-  coordinatesStr = '34.8,-118.2436849'
-}
-
 const contentStyle = {
   background: 'rgba(255,255,255,0)',
   width: '80%',
