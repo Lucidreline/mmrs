@@ -74,7 +74,7 @@ const AdventureForm = () => {
       },
     }).then(() => {
       // go back to map
-      history.push('/map')
+      history.push(`/map/goto/${lat},${lon}`)
     })
   }
 

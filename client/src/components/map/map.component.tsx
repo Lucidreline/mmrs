@@ -19,16 +19,22 @@ const Map = () => {
 
   const urlArr = useLocation().pathname.split('/')
 
-  const [MapCenter, setMapCenter] = useState((): [number, number] => {
+  const [MapCenter] = useState((): [number, number] => {
     if (urlArr.includes('goto') && urlArr.length > 3) {
       const coordinates = urlArr[3].split(',')
       return [parseFloat(coordinates[0]), parseFloat(coordinates[1])]
+    } else if (
+      process.env.REACT_APP_DEFAULT_LAT !== undefined &&
+      process.env.REACT_APP_DEFAULT_LON !== undefined
+    ) {
+      return [
+        parseFloat(process.env.REACT_APP_DEFAULT_LAT),
+        parseFloat(process.env.REACT_APP_DEFAULT_LON),
+      ]
     } else {
       return [34.8, -118.2436849]
     }
   })
-
-  let mapCenter: [number, number]
 
   useEffect(() => {
     async function fetchLocations() {
