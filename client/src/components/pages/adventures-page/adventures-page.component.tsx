@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import ThumbnailPreview from '../../thumbnail-preview-row/thumbnail-preview.component'
+import ThumbnailList from '../../thumbnail-list/thumbnail-list.component'
 
 const AdventuresPage = () => {
   const [Adventures, setAdventures] = useState([
@@ -23,7 +23,7 @@ const AdventuresPage = () => {
           <h1>{name}</h1>
           <span>{date}</span>
           <p>{description}</p>
-          <ThumbnailPreview imageUrls={pictures} firstX={3} />
+          <ThumbnailList imageUrls={pictures} firstX={3} />
         </div>
       ))}
     </div>

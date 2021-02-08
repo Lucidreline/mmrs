@@ -1,14 +1,14 @@
 import React from 'react'
 import Thumbnail from '../thumbnail/thumbnail.component'
 
-import './thumbnail-preview.styles.scss'
+import './thumbnail-list.styles.scss'
 
 interface IProps {
   imageUrls: string[]
   firstX?: number
 }
 
-const ThumbnailPreview = ({ imageUrls, firstX }: IProps) => {
+const ThumbnailList = ({ imageUrls, firstX }: IProps) => {
   if (firstX === undefined) firstX = imageUrls.length > 0 ? imageUrls.length : 0
   else if (firstX >= imageUrls.length)
     firstX = firstX = imageUrls.length > 0 ? imageUrls.length : 0
@@ -24,4 +24,4 @@ const ThumbnailPreview = ({ imageUrls, firstX }: IProps) => {
   )
 }
 
-export default ThumbnailPreview
+export default ThumbnailList
