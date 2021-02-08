@@ -88,11 +88,6 @@ const Map = () => {
             color=" #56a6e2"
             fillColor="#6bc0ea"
             fillOpacity={0.4}
-            eventHandlers={{
-              click: () => {
-                history.push(`/location/${_id}`)
-              },
-            }}
           />
         ))}
         <Events />
