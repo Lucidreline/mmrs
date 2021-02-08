@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import {
   Circle,
   MapContainer,
@@ -16,6 +16,19 @@ const Map = () => {
   const [Locations, setLocation] = useState([
     { _id: '22', lon: 34.8, lat: -118.3, radius: 100000 },
   ])
+
+  const urlArr = useLocation().pathname.split('/')
+
+  const [MapCenter, setMapCenter] = useState((): [number, number] => {
+    if (urlArr.includes('goto') && urlArr.length > 3) {
+      const coordinates = urlArr[3].split(',')
+      return [parseFloat(coordinates[0]), parseFloat(coordinates[1])]
+    } else {
+      return [34.8, -118.2436849]
+    }
+  })
+
+  let mapCenter: [number, number]
 
   useEffect(() => {
     async function fetchLocations() {
@@ -44,11 +57,7 @@ const Map = () => {
 
   return (
     <section className="map">
-      <MapContainer
-        center={[34.8, -118.2436849]}
-        zoom={8}
-        scrollWheelZoom={true}
-      >
+      <MapContainer center={MapCenter} zoom={8} scrollWheelZoom={true}>
         {/* watercolor map */}
         <TileLayer
           attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

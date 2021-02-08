@@ -20,7 +20,7 @@ const LocationCard = ({ location }: IProps) => {
 
   const history = useHistory()
 
-  const mapBtnClicked = () => history.push(`/map/${lat},${lon}`)
+  const mapBtnClicked = () => history.push(`/map/goto/${lat},${lon}`)
 
   const detailsBtnClicked = () => history.push(`/location/${_id}`)
 
