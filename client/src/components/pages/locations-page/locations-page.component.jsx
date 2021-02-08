@@ -16,7 +16,7 @@ const LocationsPage = () => {
     fetchlocation()
   }, [])
   return (
-    <div>
+    <div className="container">
       <LocationCardList locations={Locations} />
     </div>
   )

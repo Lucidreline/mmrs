@@ -27,7 +27,7 @@ export const LocationPage = () => {
     fetchlocation()
   }, [locationId])
   return (
-    <div>
+    <div className="container">
       <h1>{Location.name}</h1>
       <span>
         ({Location.lat}, {Location.lon})

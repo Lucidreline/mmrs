@@ -17,7 +17,7 @@ const AdventuresPage = () => {
   }, [])
 
   return (
-    <div>
+    <div className="container">
       {Adventures.map(({ _id, name, description, date, pictures }) => (
         <div key={_id}>
           <h1>{name}</h1>

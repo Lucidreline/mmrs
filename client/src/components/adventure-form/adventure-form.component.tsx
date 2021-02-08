@@ -1,6 +1,6 @@
 import axios from 'axios'
-import React, { FormEvent, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { FormEvent, useEffect, useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import Btn from '../btn/btn.component'
 import Input from '../input/input.component'
 import DragAndDrop from '../drag-and-drop/drag-and-drop.component'
@@ -17,6 +17,7 @@ interface IAdventureData {
 
 const AdventureForm = () => {
   const history = useHistory()
+
   const [AdventureData, setAdventureData] = useState<IAdventureData>({
     name: '',
     description: '',
@@ -24,6 +25,18 @@ const AdventureForm = () => {
     lon: 0,
     files: [],
   })
+
+  const urlArr = useLocation().pathname.split('/')
+  useEffect(() => {
+    if (urlArr.includes('coordinates') && urlArr.length > 3) {
+      const coordinates = urlArr[3].split(',')
+      const lat = parseFloat(coordinates[0])
+      const lon = parseFloat(coordinates[1])
+      setAdventureData((prevState) => {
+        return { ...prevState, lat, lon }
+      })
+    }
+  }, [urlArr])
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget
@@ -108,6 +121,24 @@ const AdventureForm = () => {
     return Promise.all(promises)
   }
 
+  const LatInput = (
+    <Input
+      type="number"
+      name="lat"
+      placeholder="Latitude"
+      handleChange={handleChange}
+    />
+  )
+
+  const LonInput = (
+    <Input
+      type="number"
+      name="lon"
+      placeholder="Longitude"
+      handleChange={handleChange}
+    />
+  )
+
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="form-title">Adventure Details!</h2>
@@ -117,18 +148,10 @@ const AdventureForm = () => {
         placeholder="Name"
         handleChange={handleChange}
       />
-      <Input
-        type="number"
-        name="lat"
-        placeholder="Latitude"
-        handleChange={handleChange}
-      />
-      <Input
-        type="number"
-        name="lon"
-        placeholder="Longitude"
-        handleChange={handleChange}
-      />
+
+      {AdventureData.lat === 0 ? LatInput : null}
+      {AdventureData.lon === 0 ? LonInput : null}
+
       <Input
         type="textArea"
         name="description"

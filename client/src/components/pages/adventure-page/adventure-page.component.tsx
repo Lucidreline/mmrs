@@ -12,7 +12,6 @@ const AdventurePage = () => {
 
   const urlArr = useLocation().pathname.split('/')
   const adventureId = urlArr[urlArr.length - 1]
-  console.log(adventureId)
 
   useEffect(() => {
     async function fetchlocation() {
@@ -30,9 +29,9 @@ const AdventurePage = () => {
   }, [adventureId])
 
   return (
-    <>
+    <div className="container">
       <p>{JSON.stringify(Adventure)}</p>
-    </>
+    </div>
   )
 }
 

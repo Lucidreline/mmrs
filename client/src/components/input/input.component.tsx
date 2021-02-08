@@ -7,19 +7,27 @@ interface IProps {
   placeholder: string
   handleChange: any
   type: string
+  [key: string]: any
 }
 
-const Input = (props: IProps) => {
+const Input = ({
+  type,
+  handleChange,
+  name,
+  placeholder,
+  ...otherProps
+}: IProps) => {
   const customTextInput = (
     <div className="custom-text-input">
       <input
-        onChange={props.handleChange}
+        {...otherProps}
+        onChange={handleChange}
         autoComplete="off"
         type="text"
-        name={props.name}
+        name={name}
       />
-      <label htmlFor={props.name}>
-        <span>{props.placeholder}</span>
+      <label htmlFor={name}>
+        <span>{placeholder}</span>
       </label>
     </div>
   )
@@ -27,34 +35,35 @@ const Input = (props: IProps) => {
   const customNumberInput = (
     <div className="custom-text-input">
       <input
-        onChange={props.handleChange}
+        {...otherProps}
+        onChange={handleChange}
         autoComplete="off"
         type="number"
-        name={props.name}
+        name={name}
         step="0.00000001"
       />
-      <label htmlFor={props.name}>
-        <span>{props.placeholder}</span>
+      <label htmlFor={name}>
+        <span>{placeholder}</span>
       </label>
     </div>
   )
 
   const customTextArea = (
     <div className="custom-text-area">
-      <textarea onChange={props.handleChange} name={props.name}></textarea>
-      <label htmlFor={props.name}>
-        <span>{props.placeholder}</span>
+      <textarea {...otherProps} onChange={handleChange} name={name}></textarea>
+      <label htmlFor={name}>
+        <span>{placeholder}</span>
       </label>
     </div>
   )
 
   let customInput
 
-  if (props.type === 'text') {
+  if (type === 'text') {
     customInput = customTextInput
-  } else if (props.type === 'textArea') {
+  } else if (type === 'textArea') {
     customInput = customTextArea
-  } else if (props.type === 'number') {
+  } else if (type === 'number') {
     customInput = customNumberInput
   } else {
     customInput = <h3>Invalid Input Type</h3>

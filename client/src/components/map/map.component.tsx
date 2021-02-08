@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Circle, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import {
+  Circle,
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMapEvents,
+} from 'react-leaflet'
 import axios from 'axios'
 
 import './map.styles.scss'
@@ -22,6 +29,18 @@ const Map = () => {
   }, [])
 
   const history = useHistory()
+
+  const Events = () => {
+    useMapEvents({
+      dblclick(e) {
+        history.push(
+          `/adventure-form/coordinates/${e.latlng.lat},${e.latlng.lng}`,
+        )
+      },
+    })
+
+    return null
+  }
 
   return (
     <section className="map">
@@ -61,6 +80,7 @@ const Map = () => {
             }}
           />
         ))}
+        <Events />
       </MapContainer>
     </section>
   )
