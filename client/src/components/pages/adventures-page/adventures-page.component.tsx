@@ -23,7 +23,7 @@ const AdventuresPage = () => {
           <h1>{name}</h1>
           <span>{date}</span>
           <p>{description}</p>
-          <ThumbnailPreview imageUrls={pictures} />
+          <ThumbnailPreview imageUrls={pictures} firstX={3} />
         </div>
       ))}
     </div>
