@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
+import LocationCard from '../../location-card/location-card.component'
 
 const LocationsPage = () => {
   const [Locations, setLocations] = useState([
-    { lat: 0, lon: 0, name: '', _id: '' },
+    { lat: 0, lon: 0, name: '', _id: '', adventures: [] },
   ])
   useEffect(() => {
     async function fetchlocation() {
@@ -18,15 +18,7 @@ const LocationsPage = () => {
   return (
     <div>
       {Locations.map((location) => (
-        <div key={Locations._id} className="">
-          <h3>{location.name}</h3>
-          <span>
-            Add some pictures from the adventures here, like the first 4 or so
-          </span>
-          <p>
-            <Link to={`/location/${location._id}`}>More Details</Link>
-          </p>
-        </div>
+        <LocationCard key={location._id} location={location} />
       ))}
     </div>
   )
