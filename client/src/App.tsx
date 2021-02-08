@@ -9,6 +9,7 @@ import AdventuresPage from './components/pages/adventures-page/adventures-page.c
 import LocationsPage from './components/pages/locations-page/locations-page.component'
 import Header from './components/header/header.component'
 import AdventureForm from './components/adventure-form/adventure-form.component'
+import AdventurePage from './components/pages/adventure-page/adventure-page.component'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route exact path="/map" component={MapPage} />
 
         <Route exact path="/adventures" component={AdventuresPage} />
+        <Route path="/adventure" component={AdventurePage} />
         <Route path="/adventure-form" component={AdventureForm} />
 
         <Route path="/location" component={LocationPage} />

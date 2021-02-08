@@ -22,6 +22,22 @@ router.get('/', async (req, res) => {
   }
 })
 
+// gets an adventure based on the id in the url
+router.get('/id', async (req, res) => {
+  console.log('you hit the right endpoint ' + (req.query as any).adventureId)
+
+  try {
+    if ((req.query as any).adventureId == undefined)
+      throw 'An Adventure ID was not provided.'
+
+    const adventure = await Adventure.findById((req.query as any).adventureId)
+
+    res.json({ adventure }).status(200)
+  } catch (err) {
+    res.json({ err: err.message }).status(500)
+  }
+})
+
 // created a new adventure and a location if one is needed.
 router.post('/new', async (req, res) => {
   const { adventure, lon, lat } = req.body
