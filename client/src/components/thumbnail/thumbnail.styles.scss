@@ -1,0 +1,20 @@
+@import '../../App.scss';
+
+.thumbnail {
+  height: 15rem;
+  width: 17rem;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 1rem;
+  border-radius: 5px;
+  box-shadow: -4px 4px 5px rgba(0, 0, 0, 0.479);
+
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.025);
+    box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.479), 0px 0px 15px $accentColor2;
+  }
+}

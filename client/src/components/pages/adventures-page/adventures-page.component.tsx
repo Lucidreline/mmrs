@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import Thumbnail from '../../thumbnail/thumbnail.component'
 
 const AdventuresPage = () => {
   const [Adventures, setAdventures] = useState([
@@ -23,7 +24,7 @@ const AdventuresPage = () => {
           <span>{date}</span>
           <p>{description}</p>
           {pictures.map((pic, index) => (
-            <img src={pic} key={index} height="300px" />
+            <Thumbnail imageUrl={pic} />
           ))}
         </div>
       ))}
