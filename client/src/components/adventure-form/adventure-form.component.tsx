@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import Btn from '../btn/btn.component'
 import Input from '../input/input.component'
 import DragAndDrop from '../drag-and-drop/drag-and-drop.component'
+import DatePicker from 'react-date-picker'
 
 import './adventure-form.styles.scss'
 
@@ -18,15 +19,28 @@ interface IAdventureData {
 const AdventureForm = () => {
   const history = useHistory()
 
-  const [AdventureData, setAdventureData] = useState<IAdventureData>({
-    name: '',
-    description: '',
-    lat: 0,
-    lon: 0,
-    files: [],
+  const urlArr = useLocation().pathname.split('/')
+  const [AdventureData, setAdventureData] = useState<IAdventureData>(() => {
+    let lat = 0,
+      lon = 0
+
+    if (urlArr.includes('coordinates') && urlArr.length > 3) {
+      const coordinates = urlArr[3].split(',')
+      lat = parseFloat(coordinates[0])
+      lon = parseFloat(coordinates[1])
+    }
+
+    return {
+      name: '',
+      description: '',
+      lat,
+      lon,
+      files: [],
+    }
   })
 
-  const urlArr = useLocation().pathname.split('/')
+  const [AdventureTime, setAdventureTime]: any[] = useState(Date.now())
+
   useEffect(() => {
     if (urlArr.includes('coordinates') && urlArr.length > 3) {
       const coordinates = urlArr[3].split(',')
@@ -36,7 +50,8 @@ const AdventureForm = () => {
         return { ...prevState, lat, lon }
       })
     }
-  }, [urlArr])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget
@@ -52,9 +67,6 @@ const AdventureForm = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const today = Date.now()
-    const date = new Date(today).toString()
-
     const { name, description, lat, lon } = AdventureData
 
     // send to api
@@ -65,7 +77,7 @@ const AdventureForm = () => {
         adventure: {
           name,
           description,
-          date,
+          date: AdventureTime.toString(),
           location: null,
           pictures: await grabImageUrls(),
         },
@@ -121,46 +133,44 @@ const AdventureForm = () => {
     return Promise.all(promises)
   }
 
-  const LatInput = (
-    <Input
-      type="number"
-      name="lat"
-      placeholder="Latitude"
-      handleChange={handleChange}
-    />
-  )
-
-  const LonInput = (
-    <Input
-      type="number"
-      name="lon"
-      placeholder="Longitude"
-      handleChange={handleChange}
-    />
-  )
-
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="form-title">Adventure Details!</h2>
       <Input
+        activated={AdventureData.name.length > 0 ? true : false}
+        value={AdventureData.name}
         type="text"
         name="name"
         placeholder="Name"
         handleChange={handleChange}
       />
-
-      {AdventureData.lat === 0 ? LatInput : null}
-      {AdventureData.lon === 0 ? LonInput : null}
-
       <Input
+        activated={AdventureData.lat !== 0 ? true : false}
+        value={AdventureData.lat}
+        type="number"
+        name="lat"
+        placeholder="Latitude"
+        handleChange={handleChange}
+      />
+      <Input
+        activated={AdventureData.lon !== 0 ? true : false}
+        value={AdventureData.lon}
+        type="number"
+        name="lon"
+        placeholder="Longitude"
+        handleChange={handleChange}
+      />
+      )
+      <Input
+        activated={AdventureData.description.length > 0 ? true : false}
+        value={AdventureData.description}
         type="textArea"
         name="description"
         placeholder="Description"
         handleChange={handleChange}
       />
-
+      <DatePicker onChange={setAdventureTime} value={AdventureTime} />
       <DragAndDrop files={AdventureData.files} onDrop={onDrop} />
-
       <Btn size="lg" className="needs-margin-top" type="submit" color="orange">
         Upload
       </Btn>

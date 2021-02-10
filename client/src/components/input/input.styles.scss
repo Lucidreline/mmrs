@@ -16,6 +16,7 @@
     background-color: $backgroundColor;
 
     &:focus + label span,
+    &.activate + label span,
     &.valid + label span {
       color: $accentColor4;
     }
@@ -56,11 +57,13 @@
     padding: 2rem 0 0 2rem;
 
     &:focus + label span,
+    &.activate + label span,
     &.valid + label span {
       transform: translateY(-3rem);
     }
 
     &:focus + label::after,
+    &.activate + label::after,
     &.valid + label::after {
       transform: translateX(0%);
     }
@@ -90,16 +93,19 @@
     padding: 0.9rem 0 0 2rem;
 
     &:focus + label span,
+    &.activate + label span,
     &.valid + label span {
       transform: translateY(-3rem);
     }
 
     &:focus + label,
+    &.activate + label,
     &.valid + label {
       border: none;
     }
 
     &:focus + label::after,
+    &.activate + label::after,
     &.valid + label::after {
       opacity: 1;
     }

@@ -7,6 +7,7 @@ interface IProps {
   placeholder: string
   handleChange: any
   type: string
+  activated: boolean
   [key: string]: any
 }
 
@@ -15,11 +16,13 @@ const Input = ({
   handleChange,
   name,
   placeholder,
+  activated,
   ...otherProps
 }: IProps) => {
   const customTextInput = (
-    <div className="custom-text-input">
+    <div className={'custom-text-input'}>
       <input
+        className={`${activated ? 'activate' : null}`}
         {...otherProps}
         onChange={handleChange}
         autoComplete="off"
@@ -33,8 +36,9 @@ const Input = ({
   )
 
   const customNumberInput = (
-    <div className="custom-text-input">
+    <div className={'custom-text-input'}>
       <input
+        className={`${activated ? 'activate' : null}`}
         {...otherProps}
         onChange={handleChange}
         autoComplete="off"
@@ -49,8 +53,13 @@ const Input = ({
   )
 
   const customTextArea = (
-    <div className="custom-text-area">
-      <textarea {...otherProps} onChange={handleChange} name={name}></textarea>
+    <div className={'custom-text-area'}>
+      <textarea
+        className={`${activated ? 'activate' : null}`}
+        {...otherProps}
+        onChange={handleChange}
+        name={name}
+      ></textarea>
       <label htmlFor={name}>
         <span>{placeholder}</span>
       </label>
