@@ -2,13 +2,16 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
+interface IAdventure {
+  _id: string
+  name: number
+  description: string
+  date: string
+  pictures: string[]
+}
+
 const AdventurePage = () => {
-  const [Adventure, setAdventure] = useState({
-    _id: '0',
-    name: '',
-    description: '',
-    date: '',
-  })
+  const [Adventure, setAdventure] = useState<IAdventure>()
 
   const urlArr = useLocation().pathname.split('/')
   const adventureId = urlArr[urlArr.length - 1]
@@ -27,10 +30,10 @@ const AdventurePage = () => {
     }
     fetchlocation()
   }, [adventureId])
-
   return (
     <div className="container">
-      <p>{JSON.stringify(Adventure)}</p>
+      <p>{Adventure?.date}</p>
+      {/* <ThumbnailList imageUrls={Adventure.pictures} /> */}
     </div>
   )
 }

@@ -1,0 +1,12 @@
+@import '../../../App.scss';
+
+.location-page {
+  text-align: center;
+
+  .coordinates {
+    font-size: 1.25rem;
+    margin-top: 0.75rem;
+    display: inline-block;
+    color: $fadedTextColor;
+  }
+}

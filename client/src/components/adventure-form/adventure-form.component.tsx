@@ -134,47 +134,54 @@ const AdventureForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2 className="form-title">Adventure Details!</h2>
-      <Input
-        activated={AdventureData.name.length > 0 ? true : false}
-        value={AdventureData.name}
-        type="text"
-        name="name"
-        placeholder="Name"
-        handleChange={handleChange}
-      />
-      <Input
-        activated={AdventureData.lat !== 0 ? true : false}
-        value={AdventureData.lat !== 0 ? AdventureData.lat : ''}
-        type="number"
-        name="lat"
-        placeholder="Latitude"
-        handleChange={handleChange}
-      />
-      <Input
-        activated={AdventureData.lon !== 0 ? true : false}
-        value={AdventureData.lon !== 0 ? AdventureData.lon : ''}
-        type="number"
-        name="lon"
-        placeholder="Longitude"
-        handleChange={handleChange}
-      />
-      )
-      <Input
-        activated={AdventureData.description.length > 0 ? true : false}
-        value={AdventureData.description}
-        type="textArea"
-        name="description"
-        placeholder="Description"
-        handleChange={handleChange}
-      />
-      <DatePicker onChange={setAdventureTime} value={AdventureTime} />
-      <DragAndDrop files={AdventureData.files} onDrop={onDrop} />
-      <Btn size="lg" className="needs-margin-top" type="submit" color="orange">
-        Upload
-      </Btn>
-    </form>
+    <>
+      <h2 className="page-title">Adventure Form</h2>
+      <form onSubmit={handleSubmit}>
+        <Input
+          activated={AdventureData.name.length > 0 ? true : false}
+          value={AdventureData.name}
+          type="text"
+          name="name"
+          placeholder="Name"
+          handleChange={handleChange}
+        />
+        <Input
+          activated={AdventureData.lat !== 0 ? true : false}
+          value={AdventureData.lat !== 0 ? AdventureData.lat : ''}
+          type="number"
+          name="lat"
+          placeholder="Latitude"
+          handleChange={handleChange}
+        />
+        <Input
+          activated={AdventureData.lon !== 0 ? true : false}
+          value={AdventureData.lon !== 0 ? AdventureData.lon : ''}
+          type="number"
+          name="lon"
+          placeholder="Longitude"
+          handleChange={handleChange}
+        />
+        )
+        <Input
+          activated={AdventureData.description.length > 0 ? true : false}
+          value={AdventureData.description}
+          type="textArea"
+          name="description"
+          placeholder="Description"
+          handleChange={handleChange}
+        />
+        <DatePicker onChange={setAdventureTime} value={AdventureTime} />
+        <DragAndDrop files={AdventureData.files} onDrop={onDrop} />
+        <Btn
+          size="lg"
+          className="needs-margin-top"
+          type="submit"
+          color="orange"
+        >
+          Upload
+        </Btn>
+      </form>
+    </>
   )
 }
 

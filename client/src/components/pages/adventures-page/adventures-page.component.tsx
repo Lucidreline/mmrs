@@ -18,6 +18,7 @@ const AdventuresPage = () => {
 
   return (
     <div className="container">
+      <h2 className="page-title">Adventures</h2>
       <AdventureCardList adventures={Adventures} />
     </div>
   )
