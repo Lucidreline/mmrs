@@ -146,7 +146,7 @@ const AdventureForm = () => {
       />
       <Input
         activated={AdventureData.lat !== 0 ? true : false}
-        value={AdventureData.lat}
+        value={AdventureData.lat !== 0 ? AdventureData.lat : ''}
         type="number"
         name="lat"
         placeholder="Latitude"
@@ -154,7 +154,7 @@ const AdventureForm = () => {
       />
       <Input
         activated={AdventureData.lon !== 0 ? true : false}
-        value={AdventureData.lon}
+        value={AdventureData.lon !== 0 ? AdventureData.lon : ''}
         type="number"
         name="lon"
         placeholder="Longitude"
