@@ -20,6 +20,8 @@ const AdventureCard = ({ adventure }: IProps) => {
       'https://res.cloudinary.com/cheese-itz/image/upload/q_10/v1613127950/mmrs/defaults/8757-road_-green-trees_-forest-free-hq-image_z0tyd1.png'
 
   nameToUse = name.length > 0 ? name : 'Cool Adventure!'
+  nameToUse = name.length > 36 ? name.substring(0, 36) + '...' : name
+
   picToUse = pictures.length > 0 ? pictures[0] : defaultImage
 
   const formattedDate = (): string => {

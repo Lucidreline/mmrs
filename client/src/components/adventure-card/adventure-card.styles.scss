@@ -27,6 +27,8 @@
     border: 3px solid $accentColor3;
     border-radius: $borderRadius;
     font-size: 1.75rem;
+    margin: 0 1rem;
+    box-shadow: -3px 2px 3px rgba(0, 0, 0, 0.3);
   }
 
   .date {

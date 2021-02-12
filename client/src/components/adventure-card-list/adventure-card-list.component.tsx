@@ -1,6 +1,8 @@
 import React from 'react'
 import AdventureCard from '../adventure-card/adventure-card.component'
 
+import './adventure-card-list.styles.scss'
+
 interface IProps {
   adventures: IAdventure[]
 }
