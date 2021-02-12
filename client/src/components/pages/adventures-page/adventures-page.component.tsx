@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import ThumbnailList from '../../thumbnail-list/thumbnail-list.component'
+import AdventureCardList from '../../adventure-card-list/adventure-card-list.component'
 
 const AdventuresPage = () => {
   const [Adventures, setAdventures] = useState([
@@ -18,14 +18,7 @@ const AdventuresPage = () => {
 
   return (
     <div className="container">
-      {Adventures.map(({ _id, name, description, date, pictures }) => (
-        <div key={_id}>
-          <h1>{name}</h1>
-          <span>{date}</span>
-          <p>{description}</p>
-          <ThumbnailList imageUrls={pictures} firstX={3} />
-        </div>
-      ))}
+      <AdventureCardList adventures={Adventures} />
     </div>
   )
 }
