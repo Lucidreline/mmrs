@@ -32,6 +32,7 @@ const AdventurePage = () => {
   }, [adventureId])
   return (
     <div className="container">
+      <h2 className="page-title">Adventure Name</h2>
       <p>{Adventure?.date}</p>
       {/* <ThumbnailList imageUrls={Adventure.pictures} /> */}
     </div>
