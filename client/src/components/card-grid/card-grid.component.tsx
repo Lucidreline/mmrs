@@ -26,8 +26,7 @@ interface IAdventure {
 }
 
 const formatDate = (date: string) => {
-  const adventureDate = new Date(parseInt(date)).toString()
-  const trimmedString = adventureDate.split(' ').slice(1, 4).join(' ')
+  const trimmedString = date.split(' ').slice(1, 4).join(' ')
   return trimmedString
 }
 
@@ -41,7 +40,7 @@ const CardGrid = (props: IProps) => {
           <Card
             key={_id}
             backgroundImg={pictures.length > 0 ? pictures[0] : null}
-            btns={[{ to: `/adventure${_id}`, msg: 'Details', size: 'md' }]}
+            btns={[{ to: `/adventure/${_id}`, msg: 'Details', size: 'md' }]}
             name={name}
             subText={formatDate(date)}
           />
@@ -58,7 +57,7 @@ const CardGrid = (props: IProps) => {
     )
   }
 
-  return whatToRender
+  return <div className="card-grid">{whatToRender}</div>
 }
 
 export default CardGrid

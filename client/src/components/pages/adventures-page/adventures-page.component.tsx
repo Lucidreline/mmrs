@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import AdventureCardList from '../../adventure-card-list/adventure-card-list.component'
+import CardGrid from '../../card-grid/card-grid.component'
 
 const AdventuresPage = () => {
   const [Adventures, setAdventures] = useState([
@@ -19,7 +19,7 @@ const AdventuresPage = () => {
   return (
     <div className="container">
       <h2 className="page-title">Adventures</h2>
-      <AdventureCardList adventures={Adventures} />
+      <CardGrid adventures={Adventures} />
     </div>
   )
 }
