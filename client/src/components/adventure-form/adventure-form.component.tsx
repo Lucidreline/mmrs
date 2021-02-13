@@ -39,7 +39,7 @@ const AdventureForm = () => {
     }
   })
 
-  const [AdventureTime, setAdventureTime]: any[] = useState(Date.now())
+  const [AdventureTime, setAdventureTime]: any[] = useState(new Date())
 
   useEffect(() => {
     if (urlArr.includes('coordinates') && urlArr.length > 3) {

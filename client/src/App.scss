@@ -11,6 +11,8 @@ $accentColor3: #6bc0ea;
 $accentColor4: #66b2ec;
 $accentColor5: #56a6e2;
 
+$normalFont: 'Quicksand', sans-serif, Roboto, sans-serif;
+
 $borderRadius: 5px;
 
 // styles
@@ -39,7 +41,7 @@ body {
 textarea,
 body,
 input {
-  font-family: 'Quicksand', sans-serif, Roboto, sans-serif;
+  font-family: $normalFont;
 }
 
 .container {

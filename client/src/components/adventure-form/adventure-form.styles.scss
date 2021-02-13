@@ -1,3 +1,4 @@
+@import '../../App.scss';
 .needs-margin-top {
   margin-top: 2rem;
 }
@@ -42,6 +43,23 @@
 @media screen and (max-width: 900px) {
   .contact-us-form {
     width: 90%;
+  }
+}
+
+.react-calendar button {
+  font-family: $normalFont;
+  color: $normalTextColor;
+  font-size: 1rem;
+
+  &.react-calendar__tile--active {
+    background: $accentColor4;
+  }
+  &.react-calendar__tile--now {
+    background: $accentColor1;
+
+    &:hover {
+      background: $accentColor2;
+    }
   }
 }
 
