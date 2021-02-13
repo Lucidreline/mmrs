@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import AdventureCardList from '../../adventure-card-list/adventure-card-list.component'
+import CardGrid from '../../card-grid/card-grid.component'
 
 import './location-page.styles.scss'
 
@@ -36,7 +36,7 @@ export const LocationPage = () => {
         ({Location.lat.toFixed(2)}, {Location.lon.toFixed(2)})
       </span>
 
-      <AdventureCardList adventures={Adventures} />
+      <CardGrid adventures={Adventures} />
     </div>
   )
 }

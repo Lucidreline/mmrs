@@ -30,6 +30,12 @@ const formatDate = (date: string) => {
   return trimmedString
 }
 
+const adventureCount = (adventures: string[]) => {
+  if (adventures.length > 1) return `${adventures.length} Adventures!`
+  else if (adventures.length === 1) return '1 Adventure!'
+  else return 'No adventures yet!'
+}
+
 const CardGrid = (props: IProps) => {
   let whatToRender
 
@@ -40,15 +46,32 @@ const CardGrid = (props: IProps) => {
           <Card
             key={_id}
             backgroundImg={pictures.length > 0 ? pictures[0] : null}
-            btns={[{ to: `/adventure/${_id}`, msg: 'Details', size: 'md' }]}
             name={name}
             subText={formatDate(date)}
+            btns={[{ to: `/adventure/${_id}`, msg: 'Details', size: 'md' }]}
           />
         ))}
       </>
     )
   } else if (props.locations !== undefined) {
-    whatToRender = <></>
+    whatToRender = (
+      <>
+        {props.locations.map(
+          ({ _id, name, mapImage, adventures, lat, lon }: ILocation) => (
+            <Card
+              key={_id}
+              backgroundImg={mapImage}
+              name={name}
+              subText={adventureCount(adventures)}
+              btns={[
+                { to: `/map/goto/${lat},${lon}`, msg: 'Map', size: 'md' },
+                { to: `/location/${_id}`, msg: 'Details', size: 'md' },
+              ]}
+            />
+          ),
+        )}
+      </>
+    )
   } else {
     whatToRender = (
       <>
