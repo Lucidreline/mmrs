@@ -2,6 +2,8 @@ import React, { useMemo, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 
 const baseStyle = {
+  width: '94%',
+  margin: '3rem auto 1.5rem auto',
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
@@ -16,6 +18,8 @@ const baseStyle = {
   outline: 'none',
   boxShadow: '-2px 2px 5px rgba(0, 0, 0, 0.2)',
   transition: 'border .24s ease-in-out',
+  textAlign: 'center',
+  
 }
 
 const activeStyle = {
