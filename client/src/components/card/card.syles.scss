@@ -28,7 +28,7 @@
     border-radius: $borderRadius;
     font-size: 1.75rem;
     margin: 0 1rem;
-    box-shadow: -3px 2px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: -3px 2px 3px rgba(0, 0, 0, 0.25);
   }
 
   .sub-text {
@@ -41,5 +41,11 @@
   .btn-container {
     display: flex;
     justify-content: space-around;
+  }
+
+  transition: 0.21s ease-in;
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: -7px 7px 15px rgba(0, 0, 0, 0.288);
   }
 }
