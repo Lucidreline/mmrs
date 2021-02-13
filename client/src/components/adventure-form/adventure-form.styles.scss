@@ -3,39 +3,39 @@
   margin-top: 2rem;
 }
 
-.contact-us-form {
-  width: 80rem;
-  margin: auto;
-  border-radius: 6px;
-  box-shadow: -2px 3px 5px rgba(0, 0, 0, 0.4);
-  padding: 4rem 2rem;
-  background-color: white;
-  margin-top: 15rem;
-
-  .form-title {
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 2.5rem;
-    color: #c4a300;
+.adventure-form {
+  .drag-and-drop-container {
+    margin: 3rem 0 1.5rem 0;
+    p {
+      font-size: 1.2rem !important;
+    }
   }
-
-  .email-receipt {
+  .date-picker-container {
+    font-size: 1.5rem;
     text-align: center;
-    animation: transitionToReceipt 5s 1s;
-    animation-fill-mode: backwards;
 
-    h2 {
-      font-size: 2.5rem;
-      color: #c4a300;
+    .react-date-picker__wrapper {
+      border-radius: $borderRadius;
+      border: none;
+      box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.2);
+      padding: 1rem 2rem;
     }
 
-    i {
-      font-size: 3.5rem;
-      margin: 2rem 0;
-    }
+    .react-calendar button {
+      font-family: $normalFont;
+      color: $normalTextColor;
+      font-size: 1rem;
 
-    .msg {
-      font-size: 1.8rem;
+      &.react-calendar__tile--active {
+        background: $accentColor4;
+      }
+      &.react-calendar__tile--now {
+        background: $accentColor1;
+
+        &:hover {
+          background: $accentColor2;
+        }
+      }
     }
   }
 }
@@ -43,23 +43,6 @@
 @media screen and (max-width: 900px) {
   .contact-us-form {
     width: 90%;
-  }
-}
-
-.react-calendar button {
-  font-family: $normalFont;
-  color: $normalTextColor;
-  font-size: 1rem;
-
-  &.react-calendar__tile--active {
-    background: $accentColor4;
-  }
-  &.react-calendar__tile--now {
-    background: $accentColor1;
-
-    &:hover {
-      background: $accentColor2;
-    }
   }
 }
 
