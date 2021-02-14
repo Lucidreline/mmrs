@@ -1,22 +1,25 @@
 @import '../../App.scss';
 
-.location-card {
+.card {
   padding-bottom: 1.5rem;
   text-align: center;
 
   border-radius: $borderRadius;
   box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.288);
 
-  .map-image {
+  .background-img {
     border-top-right-radius: $borderRadius;
     border-top-left-radius: $borderRadius;
     height: 9rem;
     width: 100%;
     background-size: cover;
     background-position: center;
+    &.default-img {
+      background-position: bottom;
+    }
   }
 
-  .location-name {
+  .name {
     transform: translateY(-55%);
     background-color: $backgroundColor;
     padding: 0 1.2rem;
@@ -24,9 +27,11 @@
     border: 3px solid $accentColor3;
     border-radius: $borderRadius;
     font-size: 1.75rem;
-    box-shadow: -3px 2px 3px rgba(0, 0, 0, 0.3);
+    margin: 0 1rem;
+    box-shadow: -3px 2px 3px rgba(0, 0, 0, 0.25);
   }
-  .adventureCount {
+
+  .sub-text {
     font-size: 1rem;
     margin-bottom: 2rem;
     display: block;
@@ -36,5 +41,11 @@
   .btn-container {
     display: flex;
     justify-content: space-around;
+  }
+
+  transition: 0.21s ease-in;
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: -7px 7px 15px rgba(0, 0, 0, 0.288);
   }
 }

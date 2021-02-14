@@ -1,13 +1,31 @@
+@import '../../../App.scss';
+
 .adventure-page {
   text-align: center;
   .description {
     font-size: 1.2rem;
-    width: 80%;
+    width: 50%;
     margin: 0.5rem auto 0.7rem auto;
+  }
+  .location-link {
+    display: block;
+    color: $accentColor3;
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
   .date {
     display: inline-block;
     font-size: 1rem;
-    margin-bottom: 3rem;
+    color: $fadedTextColor;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .adventure-page .description {
+    width: 90%;
   }
 }

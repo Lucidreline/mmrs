@@ -103,8 +103,6 @@ const AdventureForm = () => {
     })
   }
 
-  
-
   const grabImageUrls = () => {
     const uploadURL = 'https://api.cloudinary.com/v1_1/cheese-itz/image/upload'
     const uploadPreset = 'mmrsProj'
@@ -138,7 +136,7 @@ const AdventureForm = () => {
   return (
     <>
       <h2 className="page-title">Adventure Form</h2>
-      <form onSubmit={handleSubmit} className='adventure-form container'>
+      <form onSubmit={handleSubmit} className="adventure-form container">
         <Input
           activated={AdventureData.name.length > 0 ? true : false}
           value={AdventureData.name}
@@ -163,7 +161,7 @@ const AdventureForm = () => {
           placeholder="Longitude"
           handleChange={handleChange}
         />
-        
+
         <Input
           activated={AdventureData.description.length > 0 ? true : false}
           value={AdventureData.description}
@@ -174,11 +172,11 @@ const AdventureForm = () => {
         />
 
         <div className="drag-and-drop-container">
-        <DragAndDrop files={AdventureData.files} onDrop={onDrop} />
+          <DragAndDrop files={AdventureData.files} onDrop={onDrop} />
         </div>
 
         <div className="date-picker-container">
-        <DatePicker onChange={setAdventureTime} value={AdventureTime} />
+          <DatePicker onChange={setAdventureTime} value={AdventureTime} />
         </div>
 
         <Btn

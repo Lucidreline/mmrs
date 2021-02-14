@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const router = Router()
 
-import Adventure from '../models/Adventure'
+import Adventure, { IAdventure } from '../models/Adventure'
 import Location, { ILocation } from '../models/Location'
 
 import Cloudinary from '../utils/cloudinary'
@@ -31,9 +31,22 @@ router.get('/id', async (req, res) => {
     if ((req.query as any).adventureId == undefined)
       throw 'An Adventure ID was not provided.'
 
-    const adventure = await Adventure.findById((req.query as any).adventureId)
+    const adventure: IAdventure = await Adventure.findById(
+      (req.query as any).adventureId,
+    )
 
-    res.json({ adventure }).status(200)
+    let includeLocation = false
+
+    if ((req.query as any).includeLocation !== undefined) {
+      includeLocation = (req.query as any).includeLocation ? true : false
+    }
+
+    if (includeLocation) {
+      const location = await Location.findById(adventure.location)
+      res.json({ adventure, location })
+    } else {
+      res.json(adventure).status(200)
+    }
   } catch (err) {
     res.json({ err: err.message }).status(500)
   }

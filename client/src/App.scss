@@ -90,6 +90,11 @@ a {
   font-weight: normal;
   margin-top: 2rem;
   text-align: center;
+  text-transform: capitalize;
+}
+
+.above-content-margin {
+  margin-top: 3rem;
 }
 
 @media only screen and (max-width: 500px) {

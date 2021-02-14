@@ -9,7 +9,7 @@ interface IProps {
 
 const ThumbnailList = ({ imageUrls }: IProps) => {
   return (
-    <div className="thumbnail-container">
+    <div className="thumbnail-container above-content-margin">
       {imageUrls.map((imageUrl, index) => (
         <Thumbnail key={index} imageUrl={imageUrl} />
       ))}
