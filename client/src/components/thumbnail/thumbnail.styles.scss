@@ -2,12 +2,11 @@
 
 .thumbnail {
   height: 15rem;
-  min-width: 100%;
+  width: 100%;
 
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin: 1rem;
   border-radius: 5px;
   box-shadow: -4px 4px 5px rgba(0, 0, 0, 0.479);
 
@@ -15,6 +14,6 @@
 
   &:hover {
     transform: scale(1.025);
-    box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.479), 0px 0px 15px $accentColor2;
+    box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.479);
   }
 }
