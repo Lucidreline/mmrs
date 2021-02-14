@@ -1,11 +1,10 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import CardGrid from '../../card-grid/card-grid.component'
+import { IAdventure } from '../../../utils/types'
 
 const AdventuresPage = () => {
-  const [Adventures, setAdventures] = useState([
-    { _id: '0', name: '', description: '', date: '', pictures: [''] },
-  ])
+  const [Adventures, setAdventures] = useState<IAdventure[]>()
   useEffect(() => {
     async function fetchlocation() {
       const responce = await axios.get(

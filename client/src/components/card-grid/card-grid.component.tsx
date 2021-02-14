@@ -1,4 +1,6 @@
 import React from 'react'
+import { formatDateFromString } from '../../utils/functions'
+import { IAdventure, ILocation } from '../../utils/types'
 import Card from '../card/card.component'
 
 import './card-grid.styles.scss'
@@ -6,28 +8,6 @@ import './card-grid.styles.scss'
 interface IProps {
   locations?: ILocation[]
   adventures?: IAdventure[]
-}
-
-interface ILocation {
-  lat: number
-  lon: number
-  name: string
-  _id: string
-  mapImage: string
-  adventures: string[]
-}
-
-interface IAdventure {
-  _id: string
-  name: string
-  pictures: string[]
-  date: string
-  [key: string]: any
-}
-
-const formatDate = (date: string) => {
-  const trimmedString = date.split(' ').slice(1, 4).join(' ')
-  return trimmedString
 }
 
 const adventureCount = (adventures: string[]) => {
@@ -47,7 +27,7 @@ const CardGrid = (props: IProps) => {
             key={_id}
             backgroundImg={pictures.length > 0 ? pictures[0] : null}
             name={name}
-            subText={formatDate(date)}
+            subText={formatDateFromString(date)}
             btns={[{ to: `/adventure/${_id}`, msg: 'Details', size: 'md' }]}
           />
         ))}

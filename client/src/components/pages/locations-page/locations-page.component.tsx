@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import CardGrid from '../../card-grid/card-grid.component'
+import { ILocation } from '../../../utils/types'
 
 const LocationsPage = () => {
-  const [Locations, setLocations] = useState([
-    { lat: 0, lon: 0, name: '', _id: '', adventures: [], mapImage: '' },
-  ])
+  const [Locations, setLocations] = useState<ILocation[]>()
+
   useEffect(() => {
     async function fetchlocation() {
       const responce = await axios.get(
