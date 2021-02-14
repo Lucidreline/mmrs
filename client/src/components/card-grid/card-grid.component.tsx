@@ -60,7 +60,7 @@ const CardGrid = (props: IProps) => {
     )
   }
 
-  return <div className="card-grid">{whatToRender}</div>
+  return <div className="card-grid above-content-margin">{whatToRender}</div>
 }
 
 export default CardGrid

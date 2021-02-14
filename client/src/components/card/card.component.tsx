@@ -22,7 +22,7 @@ const Card = ({ backgroundImg, name, subText, btns }: IProps) => {
   const history = useHistory()
 
   const defaultImg =
-    'https://res.cloudinary.com/cheese-itz/image/upload/q_10/v1613127950/mmrs/defaults/8757-road_-green-trees_-forest-free-hq-image_z0tyd1.png'
+    'https://res.cloudinary.com/cheese-itz/image/upload/v1613292820/mmrs/defaults/BackgroundLocationImage_ctfpd8.jpg'
   if (backgroundImg == null) backgroundImg = defaultImg
 
   name = name.length > 0 ? name : 'Not Named Yet!'

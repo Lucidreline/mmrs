@@ -17,6 +17,7 @@ const LocationsPage = () => {
   }, [])
   return (
     <div className="container">
+      <h2 className="page-title">Locations</h2>
       <CardGrid locations={Locations} />
     </div>
   )
