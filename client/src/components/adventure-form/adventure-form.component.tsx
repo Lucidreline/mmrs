@@ -105,7 +105,8 @@ const AdventureForm = () => {
 
   const grabImageUrls = () => {
     const uploadURL = 'https://api.cloudinary.com/v1_1/cheese-itz/image/upload'
-    const uploadPreset = 'mmrsProj'
+    const uploadPreset =
+      process.env.REACT_APP_CLOUDINARY_PRESET || 'mmrsProjDev'
 
     let promises: any[] = []
 

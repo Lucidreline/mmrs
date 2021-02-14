@@ -79,7 +79,7 @@ router.post('/new', async (req, res) => {
       try {
         await getMapImageFileStr().then(async (fileStr) => {
           const uploadRes = await Cloudinary.uploader.upload(fileStr, {
-            upload_preset: 'mmrsMaps',
+            upload_preset: config.get('cloudinaryMapPreset'),
           })
           resolve(uploadRes.secure_url)
         })
