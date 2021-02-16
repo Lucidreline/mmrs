@@ -29,6 +29,16 @@ const menu = ({ close }: any) => {
             Upload
           </NavLink>
         </li>
+        <li>
+          <NavLink onClick={close} activeClassName="current" to="/sign-in">
+            Sign In
+          </NavLink>
+        </li>
+        <li>
+          <NavLink onClick={close} activeClassName="current" to="/sign-up">
+            Sign Up
+          </NavLink>
+        </li>
       </ul>
     </div>
   )

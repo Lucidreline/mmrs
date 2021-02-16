@@ -4,7 +4,7 @@ import bycript from 'bcryptjs'
 
 const router = Router()
 
-router.post('/register', async (req, res) => {
+router.post('/sign-up', async (req, res) => {
   try {
     const { email, username, password } = req.body
 
@@ -35,7 +35,7 @@ router.post('/register', async (req, res) => {
   }
 })
 
-router.post('/login', async (req, res) => {
+router.post('/sign-in', async (req, res) => {
   const { username, password } = req.body
 
   const user = await User.findOne({ username: username })
