@@ -26,10 +26,10 @@ html {
 }
 
 *::selection {
-  background: $accentColor4; /* WebKit/Blink Browsers */
+  background: $accentColor4 !important; /* WebKit/Blink Browsers */
 }
 *::-moz-selection {
-  background: $accentColor4; /* Gecko Browsers */
+  background: $accentColor4 !important; /* Gecko Browsers */
 }
 
 body {
@@ -93,7 +93,7 @@ a {
   text-transform: capitalize;
 }
 
-.above-content-margin {
+.above-medium-margin {
   margin-top: 3rem;
 }
 

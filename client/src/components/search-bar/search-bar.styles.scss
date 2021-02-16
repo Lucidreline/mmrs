@@ -1,0 +1,41 @@
+@import '../../App.scss';
+
+.search-bar {
+  align-items: center;
+  position: relative;
+
+  width: 80%;
+  margin: 2rem auto 0 auto;
+
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.015);
+  }
+
+  .search-icon i {
+    font-size: 1.5rem;
+    color: $fadedTextColor;
+
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translate(-50%, -50%);
+
+    cursor: pointer;
+  }
+
+  .search-input {
+    border: none;
+    padding: 0.5rem 4.25rem 0.5rem 2rem;
+    width: 100%;
+
+    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: $borderRadius;
+    color: $accentColor4;
+
+    &::placeholder {
+      color: $fadedTextColor;
+    }
+  }
+}
