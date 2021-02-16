@@ -9,6 +9,7 @@ import connectDB from './utils/connectDB'
 
 import { router as adventuresRouter } from './routes/adventures'
 import { router as locationsRouter } from './routes/locations'
+import { router as usersRouter } from './routes/users'
 
 connectDB()
 
@@ -22,6 +23,7 @@ app.use(bodyParser.json())
 // routes
 app.use('/api/adventures', adventuresRouter)
 app.use('/api/locations', locationsRouter)
+app.use('/api/users', usersRouter)
 
 app.get('/', (req, res) => {
   res.redirect('/map')
