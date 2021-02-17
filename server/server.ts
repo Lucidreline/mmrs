@@ -12,6 +12,7 @@ import connectDB from './utils/connectDB'
 import { router as adventuresRouter } from './routes/adventures'
 import { router as locationsRouter } from './routes/locations'
 import { guestUser, router as usersRouter } from './routes/users'
+import guestSignIn from './middlewares/guest-sign-in'
 
 connectDB()
 
@@ -40,6 +41,8 @@ app.use(
     credentials: true,
   }),
 )
+
+app.use(guestSignIn)
 
 // routes
 app.use('/api/adventures', adventuresRouter)

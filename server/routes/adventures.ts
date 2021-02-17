@@ -20,7 +20,9 @@ const distance = (point1: number[], point2: number[]) => {
 // lists all adventures in the database
 router.get('/', async (req, res) => {
   try {
-    res.json(await Adventure.find({})).status(200)
+    res
+      .json(await Adventure.find({ createdBy: req.session.user._id }))
+      .status(200)
   } catch (err) {
     res.json({ err: err.message }).status(500)
   }
@@ -35,6 +37,14 @@ router.get('/id', async (req, res) => {
     const adventure: IAdventure = await Adventure.findById(
       (req.query as any).adventureId,
     )
+
+    if (adventure.createdBy.toString() !== req.session.user._id) {
+      console.log('huh')
+      console.log(adventure.createdBy)
+      console.log(req.session)
+
+      return res.json({ err: 'Unathorized.' })
+    }
 
     let includeLocation = false
 
@@ -57,14 +67,7 @@ router.get('/id', async (req, res) => {
 router.post('/new', async (req, res) => {
   const { adventure, lon, lat } = req.body
 
-  let currentUser: IUser
-  if (req.session.user) {
-    currentUser = await User.findById(req.session.user._id)
-  } else {
-    currentUser = await User.findOne({
-      username: config.get('guestUser.username'),
-    })
-  }
+  const currentUser = req.session.user
 
   const getMapImageFileStr = () => {
     return new Promise<string>(async (resolve) => {
