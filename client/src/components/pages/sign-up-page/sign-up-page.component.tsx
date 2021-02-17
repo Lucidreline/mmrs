@@ -1,5 +1,9 @@
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { FormEvent, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import Btn from '../../btn/btn.component'
 import Input from '../../input/input.component'
+import Message from '../../message/message.component'
 
 interface ISignUpFormInputs {
   email: string
@@ -14,6 +18,10 @@ const SignUpPage = () => {
     password: '',
   })
 
+  const [ErrorMsg, setErrorMsg] = useState('')
+
+  const history = useHistory()
+
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget
     SetFormInputs((prevState) => {
@@ -21,10 +29,36 @@ const SignUpPage = () => {
     })
   }
 
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const { username, email, password } = FormInputs
+
+    // send to api
+    await axios({
+      method: 'post',
+      url: `${process.env.REACT_APP_API_ORIGIN}/api/users/sign-up`,
+      data: {
+        username,
+        email,
+        password,
+      },
+    }).then((res) => {
+      if (res.data.err) {
+        SetFormInputs({ username: '', email: '', password: '' })
+        setErrorMsg(res.data.err)
+      } else {
+        history.push('/map')
+      }
+    })
+  }
+
   return (
     <div className="sign-up-page">
       <h2 className="page-title">Sign Up</h2>
-      <form className="sign-in-form">
+      <form className="sign-in-form container" onSubmit={handleSubmit}>
+        <Message msg={ErrorMsg} status="error" />
+
         <Input
           activated={FormInputs.username.length > 0 ? true : false}
           value={FormInputs.username}
@@ -49,6 +83,9 @@ const SignUpPage = () => {
           placeholder="Password"
           handleChange={handleChange}
         />
+        <Btn size="lg" type="submit" className="needs-margin-top">
+          Sign Up
+        </Btn>
       </form>
     </div>
   )
