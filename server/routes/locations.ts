@@ -7,7 +7,9 @@ const router = Router()
 // lists all locations in the database
 router.get('/', async (req, res) => {
   try {
-    res.json(await Location.find({})).status(200)
+    res
+      .json(await Location.find({ createdBy: req.session.user._id }))
+      .status(200)
   } catch (err) {
     res.json({ err: err.message }).status(500)
   }
@@ -18,11 +20,15 @@ router.get('/id-and-adventures', async (req, res) => {
   try {
     const adventures = await Adventure.find({
       location: (req.query as any).locationId,
+      createdBy: req.session.user._id,
     })
     const location = await Location.findById(req.query.locationId)
-    res.json({ location, adventures }).status(200)
+    if (location.createdBy._id.toString() !== req.session.user._id.toString())
+      return res.json({ err: 'Unauthorized.' })
+
+    return res.json({ location, adventures }).status(200)
   } catch (err) {
-    res.json({ err: err.message }).status(500)
+    return res.json({ err: err.message }).status(500)
   }
 })
 
