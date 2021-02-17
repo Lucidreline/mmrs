@@ -17,6 +17,7 @@ router.post('/sign-up', async (req, res) => {
       password: hashedPassword,
       adventures: [],
       locations: [],
+      pinPoints: [],
     })
     const savedUser = await user.save()
 

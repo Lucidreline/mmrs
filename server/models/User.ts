@@ -7,6 +7,7 @@ export interface IUser extends mongoose.Document {
 
   adventures: mongoose.Types.ObjectId[]
   locations: mongoose.Types.ObjectId[]
+  pinPoints: mongoose.Types.ObjectId[]
 }
 
 const UserSchema = new mongoose.Schema({
@@ -16,6 +17,7 @@ const UserSchema = new mongoose.Schema({
 
   adventures: [mongoose.Schema.Types.ObjectId],
   locations: [mongoose.Schema.Types.ObjectId],
+  pinPoints: [mongoose.Schema.Types.ObjectId],
 })
 
 const User = mongoose.model<IUser>('user', UserSchema)
