@@ -12,12 +12,12 @@ export interface IUser extends mongoose.Document {
 
 const UserSchema = new mongoose.Schema({
   email: String,
-  username: String,
+  username: { type: String, unique: true },
   password: String,
 
-  adventures: [mongoose.Schema.Types.ObjectId],
-  locations: [mongoose.Schema.Types.ObjectId],
-  pinPoints: [mongoose.Schema.Types.ObjectId],
+  adventures: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+  locations: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+  pinPoints: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 })
 
 const User = mongoose.model<IUser>('user', UserSchema)

@@ -7,6 +7,7 @@ const router = Router()
 
 import Adventure, { IAdventure } from '../models/Adventure'
 import Location, { ILocation } from '../models/Location'
+import User, { IUser } from '../models/User'
 
 import Cloudinary from '../utils/cloudinary'
 
@@ -56,6 +57,15 @@ router.get('/id', async (req, res) => {
 router.post('/new', async (req, res) => {
   const { adventure, lon, lat } = req.body
 
+  let currentUser: IUser
+  if (req.session.user) {
+    currentUser = await User.findById(req.session.user._id)
+  } else {
+    currentUser = await User.findOne({
+      username: config.get('guestUser.username'),
+    })
+  }
+
   const getMapImageFileStr = () => {
     return new Promise<string>(async (resolve) => {
       const url = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lon}&zoom=13&size=600x300&maptype=terrain&key=${config.get(
@@ -90,7 +100,9 @@ router.post('/new', async (req, res) => {
   }
 
   try {
-    const locations: ILocation[] = await Location.find({}) // puts all locations into an array
+    const locations: ILocation[] = await Location.find({
+      createdBy: currentUser._id,
+    }) // puts all locations into an array
     let locationNearAdventure = null
 
     for (let i = 0; i < locations.length; i++) {
@@ -101,9 +113,11 @@ router.post('/new', async (req, res) => {
         break
       }
     }
+    let createdNewLocation = false
+
     if (locationNearAdventure == null) {
       // no locations near adventure, have to create a new location
-
+      createdNewLocation = true
       let name = ''
 
       await fetch(
@@ -141,19 +155,24 @@ router.post('/new', async (req, res) => {
 
         mapImage: await getMapImageCloudinaryUrl(),
 
+        createdBy: currentUser._id,
+
         adventures: [],
         radius: 12000,
       })
-
-      adventure.location = locationNearAdventure._id
-    } else {
-      adventure.location = locationNearAdventure._id
     }
+    adventure.location = locationNearAdventure._id
+    adventure.createdBy = currentUser._id
+
     const adventureInDatabase = await Adventure.create(adventure)
     locationNearAdventure.adventures.push(adventureInDatabase._id)
     await locationNearAdventure.save()
 
-    res.json(adventure).status(200)
+    currentUser.adventures.push(adventureInDatabase._id)
+    if (createdNewLocation)
+      currentUser.locations.push(locationNearAdventure._id)
+
+    await currentUser.save().then(() => res.json(adventure).status(200))
   } catch (err) {
     res.json({ err: err.message }).status(500)
   }

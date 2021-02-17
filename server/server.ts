@@ -11,23 +11,22 @@ import connectDB from './utils/connectDB'
 
 import { router as adventuresRouter } from './routes/adventures'
 import { router as locationsRouter } from './routes/locations'
-import { router as usersRouter } from './routes/users'
+import { guestUser, router as usersRouter } from './routes/users'
 
 connectDB()
 
 const app = express()
 
-app.use(cors())
-
 app.use(cookieParser())
 
 app.use(helmet())
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use(
   session({
     secret: config.get('session.secret'),
-    saveUninitialized: true,
+    saveUninitialized: false,
     resave: false,
     cookie: {
       httpOnly: true,
@@ -36,10 +35,11 @@ app.use(
   }),
 )
 
-app.use((req, res, next) => {
-  console.log(req.session)
-  next()
-})
+app.use(
+  cors({
+    credentials: true,
+  }),
+)
 
 // routes
 app.use('/api/adventures', adventuresRouter)
@@ -70,6 +70,7 @@ app.get('*', (req, res) => {
   )
 })
 
-app.listen(config.get('port'), () =>
-  console.log(`Server Online on port ${config.get('port')}!`),
-)
+app.listen(config.get('port'), () => {
+  console.log(`Server Online on port ${config.get('port')}!`)
+  guestUser()
+})

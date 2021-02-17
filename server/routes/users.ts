@@ -1,10 +1,18 @@
-import { Router } from 'express'
+import { Router, Request } from 'express'
 import User from '../models/User'
 import bycript from 'bcryptjs'
+import config from 'config'
 
 const router = Router()
 
-router.post('/sign-up', async (req, res) => {
+declare module 'express-session' {
+  // this is to fix req.session not letting us add the user in the session
+  interface Session {
+    [key: string]: any
+  }
+}
+
+router.post('/sign-up', async (req: Request, res) => {
   try {
     const { email, username, password } = req.body
 
@@ -29,6 +37,7 @@ router.post('/sign-up', async (req, res) => {
       locations: savedUser.locations,
     }
 
+    req.session.user = dataToSendBack
     res.json(dataToSendBack).status(200)
   } catch (err) {
     console.log('hi')
@@ -47,7 +56,26 @@ router.post('/sign-in', async (req, res) => {
     return res.json({ err: 'Email or passowrd is wrong.' }).status(400)
 
   // if you made it here then the user is legit
-  res.json({ _id: user.id, username: user.username, email: user.email })
+  const dataToSendBack = {
+    _id: user.id,
+    username: user.username,
+    email: user.email,
+  }
+  req.session.user = dataToSendBack
+  res.json(dataToSendBack)
 })
 
 export { router }
+
+export const guestUser = async () => {
+  const guest = await User.findOne({
+    username: config.get('guestUser.username'),
+  })
+
+  if (!guest) {
+    const { username, email, password } = config.get('guestUser')
+    const salt = await bycript.genSalt(10) // 10 is the complexity of the salt
+    const hashedPassword = await bycript.hash(password, salt)
+    await User.create({ username, email, password: hashedPassword })
+  }
+}
