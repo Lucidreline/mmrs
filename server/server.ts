@@ -1,4 +1,6 @@
 import helmet from 'helmet'
+import cookieParser from 'cookie-parser'
+import session from 'express-session'
 import bodyParser from 'body-parser'
 import express from 'express'
 import config from 'config'
@@ -17,8 +19,27 @@ const app = express()
 
 app.use(cors())
 
+app.use(cookieParser())
+
 app.use(helmet())
 app.use(bodyParser.json())
+
+app.use(
+  session({
+    secret: config.get('session.secret'),
+    saveUninitialized: true,
+    resave: false,
+    cookie: {
+      httpOnly: true,
+      maxAge: config.get('session.maxAge'),
+    },
+  }),
+)
+
+app.use((req, res, next) => {
+  console.log(req.session)
+  next()
+})
 
 // routes
 app.use('/api/adventures', adventuresRouter)
