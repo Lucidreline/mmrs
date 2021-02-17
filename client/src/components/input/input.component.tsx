@@ -26,7 +26,7 @@ const Input = ({
         {...otherProps}
         onChange={handleChange}
         autoComplete="off"
-        type="text"
+        type={type}
         name={name}
       />
       <label htmlFor={name}>
@@ -68,7 +68,7 @@ const Input = ({
 
   let customInput
 
-  if (type === 'text') {
+  if (['text', 'password', 'email'].includes(type)) {
     customInput = customTextInput
   } else if (type === 'textArea') {
     customInput = customTextArea

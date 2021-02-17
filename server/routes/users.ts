@@ -39,14 +39,14 @@ router.post('/sign-in', async (req, res) => {
   const { username, password } = req.body
 
   const user = await User.findOne({ username: username })
-  if (!user) return res.status(400).json({ err: 'Email or passowrd is wrong.' })
+  if (!user) return res.json({ err: 'Email or passowrd is wrong.' })
 
   const validPass = await bycript.compare(password, user.password)
   if (!validPass)
-    return res.status(400).json({ err: 'Email or passowrd is wrong.' })
+    return res.json({ err: 'Email or passowrd is wrong.' }).status(400)
 
   // if you made it here then the user is legit
-  res.send('YASS QUEEEN')
+  res.json({ _id: user.id, username: user.username, email: user.email })
 })
 
 export { router }

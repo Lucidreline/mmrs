@@ -58,10 +58,6 @@ const AdventureForm = () => {
     setAdventureData((prevState) => {
       return { ...prevState, [name]: value }
     })
-
-    if (e.currentTarget.value.trim() !== '')
-      e.currentTarget.classList.add('valid')
-    else e.currentTarget.classList.remove('valid')
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -180,12 +176,7 @@ const AdventureForm = () => {
           <DatePicker onChange={setAdventureTime} value={AdventureTime} />
         </div>
 
-        <Btn
-          size="lg"
-          className="needs-margin-top"
-          type="submit"
-          color="orange"
-        >
+        <Btn size="lg" className="needs-margin-top" type="submit">
           Upload
         </Btn>
       </form>
