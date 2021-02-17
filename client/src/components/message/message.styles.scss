@@ -1,0 +1,27 @@
+@import '../../App.scss';
+
+.message {
+  font-size: 2rem;
+  display: block;
+  text-align: center;
+  width: 100%;
+  margin: 1.5rem auto 0 auto;
+
+  &.warning {
+    color: $warningColor;
+  }
+
+  &.normal {
+    color: $accentColor3;
+  }
+
+  &.error {
+    color: $errorColor;
+  }
+}
+
+@media only screen and (max-width: 725px) {
+  .message {
+    font-size: 1.3rem;
+  }
+}

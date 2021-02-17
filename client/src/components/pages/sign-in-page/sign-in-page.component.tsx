@@ -3,6 +3,7 @@ import React, { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Btn from '../../btn/btn.component'
 import Input from '../../input/input.component'
+import Message from '../../message/message.component'
 
 interface ISignInFormInputs {
   username: string
@@ -52,7 +53,9 @@ const SignInPage = () => {
   return (
     <div className="sign-in-page">
       <h2 className="page-title">Sign In</h2>
-      <form className="sign-in-form" onSubmit={handleSubmit}>
+      <form className="sign-in-form container" onSubmit={handleSubmit}>
+        <Message msg={ErrorMsg} status="error" />
+
         <Input
           activated={FormInputs.username.length > 0 ? true : false}
           value={FormInputs.username}
@@ -70,10 +73,7 @@ const SignInPage = () => {
           placeholder="Password"
           handleChange={handleChange}
         />
-        {ErrorMsg.length > 0 ? (
-          <span className="error-msg">{ErrorMsg}</span>
-        ) : null}
-        <Btn size="lg" type="submit">
+        <Btn size="lg" type="submit" className="needs-margin-top">
           Sign In
         </Btn>
       </form>
