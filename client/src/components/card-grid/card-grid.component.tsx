@@ -52,13 +52,9 @@ const CardGrid = (props: IProps) => {
         )}
       </>
     )
-  } else {
-    whatToRender = (
-      <>
-        <p>Card Type is invalid</p>
-      </>
-    )
   }
+
+  // if nothing renders then there is no content
 
   return <div className="card-grid above-medium-margin">{whatToRender}</div>
 }
