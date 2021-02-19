@@ -33,8 +33,6 @@ router.post('/sign-up', async (req: Request, res) => {
       _id: savedUser._id,
       email: savedUser.email,
       username: savedUser.username,
-      adventures: savedUser.adventures,
-      locations: savedUser.locations,
     }
 
     req.session.user = dataToSendBack

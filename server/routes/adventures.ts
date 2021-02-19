@@ -67,7 +67,7 @@ router.get('/id', async (req, res) => {
 router.post('/new', async (req, res) => {
   const { adventure, lon, lat } = req.body
 
-  const currentUser = req.session.user
+  const currentUser = await User.findById(req.session.user._id)
 
   const getMapImageFileStr = () => {
     return new Promise<string>(async (resolve) => {
