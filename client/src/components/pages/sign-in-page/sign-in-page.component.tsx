@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import fetchCurrentUser from '../../../utils/fetch-current-user'
+import { IUser } from '../../../utils/types'
 import Btn from '../../btn/btn.component'
 import Input from '../../input/input.component'
 import Message from '../../message/message.component'
@@ -14,6 +16,10 @@ const SignInPage = () => {
   const [FormInputs, SetFormInputs] = useState<ISignInFormInputs>({
     username: '',
     password: '',
+  })
+
+  const [currentUser, setcurrentUser] = useState<IUser>(() => {
+    return fetchCurrentUser()
   })
 
   const [ErrorMsg, setErrorMsg] = useState('')

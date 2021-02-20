@@ -12,6 +12,17 @@ declare module 'express-session' {
   }
 }
 
+router.get('/current-user', async (req, res) => {
+  try {
+    const { username, email, adventures, location, pinPoints } = await req
+      .session.user
+
+    res.json({ username, email, adventures, location, pinPoints }).status(200)
+  } catch (err) {
+    res.json({ err: 'Error getting current user.' }).status(500)
+  }
+})
+
 router.post('/sign-up', async (req: Request, res) => {
   try {
     const { email, username, password } = req.body

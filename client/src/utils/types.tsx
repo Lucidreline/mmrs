@@ -14,3 +14,12 @@ export interface IAdventure {
   date: string
   pictures: string[]
 }
+
+export interface IUser {
+  email: string
+  username: string
+
+  adventures: string[]
+  locations: string[]
+  pinPoints: string[]
+}
