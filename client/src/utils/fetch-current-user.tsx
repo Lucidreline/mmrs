@@ -2,20 +2,14 @@ import axios from 'axios'
 import { IUser } from './types'
 
 interface IResponce {
-  data: {
-    username: string
-    email: string
-    locations: string[]
-    adventures: string[]
-    pinPoints: string[]
-  }
+  data: IUser
 }
 
-const fetchCurrentUser = () => {
+const fetchCurrentUser = async () => {
   return new Promise<IUser>((resolve, reject) => {
     try {
       axios
-        .get(`${process.env.REACT_APP_API_ORIGIN}/current-user`)
+        .get(`${process.env.REACT_APP_API_ORIGIN}/api/users/current-user`)
         .then((res: IResponce) => {
           resolve(res.data)
         })
@@ -24,5 +18,17 @@ const fetchCurrentUser = () => {
     }
   })
 }
+
+export const guestExsists = async () => {
+  try {
+    const currentUser = await fetchCurrentUser()
+
+      return currentUser.username === 'Guest'? true : false
+    
+  } catch (error) {
+    return false
+  }
+       
+  }
 
 export default fetchCurrentUser
