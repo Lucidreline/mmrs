@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import fetchCurrentUser from '../../utils/fetch-current-user'
-import Message from '../message/message.component'
+import Message, { IStyles } from '../message/message.component'
 
-const GuestSignInMessage = () => {
+interface IProps extends IStyles {}
+
+const GuestSignInMessage = ({ ...otherProps }: IProps) => {
   const [Msg, setMsg] = useState('')
 
   useEffect(() => {
@@ -15,7 +17,7 @@ const GuestSignInMessage = () => {
 
     initMsg()
   })
-  return <Message msg={Msg} status="warning" />
+  return <Message msg={Msg} status="warning" {...otherProps} />
 }
 
 export default GuestSignInMessage

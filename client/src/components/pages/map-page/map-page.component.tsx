@@ -5,7 +5,7 @@ import Map from '../../map/map.component'
 
 const MapPage = () => (
   <div>
-    <GuestSignInMessage />
+    <GuestSignInMessage marginBottom />
     <Map />
   </div>
 )

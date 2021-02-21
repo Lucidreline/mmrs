@@ -1,11 +1,19 @@
 @import '../../App.scss';
 
 .message {
-  font-size: 2rem;
+  font-size: 1.4rem;
   display: block;
   text-align: center;
   width: 100%;
   margin: 0rem auto 0 auto;
+
+  &.margin-top {
+    margin-top: 1rem;
+  }
+
+  &.margin-bottom {
+    margin-bottom: 1rem;
+  }
 
   &.warning {
     color: $warningColor;
