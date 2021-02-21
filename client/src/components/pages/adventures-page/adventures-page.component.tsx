@@ -4,6 +4,7 @@ import CardGrid from '../../card-grid/card-grid.component'
 import { IAdventure } from '../../../utils/types'
 import SearchBar from '../../search-bar/search-bar.component'
 import { formatDateFromString } from '../../../utils/functions'
+import GuestSignInMessage from '../../guest-signed-in-message/guest-sign-in-message.component'
 
 const AdventuresPage = () => {
   const [Adventures, setAdventures] = useState<IAdventure[]>()
@@ -33,6 +34,7 @@ const AdventuresPage = () => {
   return (
     <div className="container">
       <h2 className="page-title">Adventures</h2>
+      <GuestSignInMessage />
       <SearchBar
         placeholder="Search"
         handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>

@@ -1,8 +1,8 @@
 import axios from 'axios'
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { guestExsists } from '../../../utils/fetch-current-user'
 import Btn from '../../btn/btn.component'
+import GuestSignInMessage from '../../guest-signed-in-message/guest-sign-in-message.component'
 import Input from '../../input/input.component'
 import Message from '../../message/message.component'
 
@@ -18,17 +18,6 @@ const SignInPage = () => {
   })
 
   const [ErrorMsg, setErrorMsg] = useState('')
-  const [GuestMsg, setGuestMsg] = useState('')
-
-  useEffect(() =>{
-    const updateGuestMsg = async () => {
-      await guestExsists().then((isGuest) => {
-        isGuest ? setGuestMsg('Currently signed in as Guest.') : setGuestMsg('')
-      })
-    }
-
-    updateGuestMsg()
-  })
 
   const history = useHistory()
 
@@ -62,15 +51,12 @@ const SignInPage = () => {
     })
   }
 
-  
-
   return (
     <div className="sign-in-page">
       <h2 className="page-title">Sign In</h2>
-      <Message msg={GuestMsg} status='warning'/>
+      <GuestSignInMessage />
       <Message msg={ErrorMsg} status="error" />
       <form className="sign-in-form container" onSubmit={handleSubmit}>
-
         <Input
           activated={FormInputs.username.length > 0 ? true : false}
           value={FormInputs.username}

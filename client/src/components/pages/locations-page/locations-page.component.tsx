@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import CardGrid from '../../card-grid/card-grid.component'
 import { ILocation } from '../../../utils/types'
 import SearchBar from '../../search-bar/search-bar.component'
+import GuestSignInMessage from '../../guest-signed-in-message/guest-sign-in-message.component'
 
 const LocationsPage = () => {
   const [Locations, setLocations] = useState<ILocation[]>()
@@ -25,6 +26,7 @@ const LocationsPage = () => {
   return (
     <div className="container">
       <h2 className="page-title">Locations</h2>
+      <GuestSignInMessage />
       <SearchBar
         placeholder="Search"
         handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>

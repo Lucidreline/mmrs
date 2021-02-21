@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Btn from '../../btn/btn.component'
+import GuestSignInMessage from '../../guest-signed-in-message/guest-sign-in-message.component'
 import Input from '../../input/input.component'
 import Message from '../../message/message.component'
 
@@ -56,6 +57,7 @@ const SignUpPage = () => {
   return (
     <div className="sign-up-page">
       <h2 className="page-title">Sign Up</h2>
+      <GuestSignInMessage />
       <form className="sign-in-form container" onSubmit={handleSubmit}>
         <Message msg={ErrorMsg} status="error" />
 

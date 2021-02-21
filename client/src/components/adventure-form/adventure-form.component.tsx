@@ -7,6 +7,7 @@ import DragAndDrop from '../drag-and-drop/drag-and-drop.component'
 import DatePicker from 'react-date-picker'
 
 import './adventure-form.styles.scss'
+import GuestSignInMessage from '../guest-signed-in-message/guest-sign-in-message.component'
 
 interface IAdventureData {
   name: string
@@ -133,6 +134,7 @@ const AdventureForm = () => {
   return (
     <>
       <h2 className="page-title">Adventure Form</h2>
+      <GuestSignInMessage />
       <form onSubmit={handleSubmit} className="adventure-form container">
         <Input
           activated={AdventureData.name.length > 0 ? true : false}
