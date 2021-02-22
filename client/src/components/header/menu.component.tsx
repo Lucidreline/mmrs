@@ -1,10 +1,23 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { IUser } from '../../utils/types'
 
-const menu = ({ close }: any) => {
+interface IProps {
+  close: any
+  currentUser?: IUser
+}
+
+const menu = ({ close, currentUser }: IProps) => {
   return (
     <div className="menu">
       <ul>
+        {currentUser ? (
+          <li id="menu-username">
+            {currentUser.username}
+            <hr className="username-divider"></hr>
+          </li>
+        ) : null}
+
         <li>
           <NavLink onClick={close} activeClassName="current" to="/map">
             Map
@@ -29,16 +42,33 @@ const menu = ({ close }: any) => {
             Upload
           </NavLink>
         </li>
-        <li>
-          <NavLink onClick={close} activeClassName="current" to="/sign-in">
-            Sign In
-          </NavLink>
-        </li>
-        <li>
-          <NavLink onClick={close} activeClassName="current" to="/sign-up">
-            Sign Up
-          </NavLink>
-        </li>
+        {currentUser?.username === 'Guest' ? (
+          <>
+            <li>
+              <NavLink onClick={close} activeClassName="current" to="/sign-in">
+                Sign In
+              </NavLink>
+            </li>
+            <li>
+              <NavLink onClick={close} activeClassName="current" to="/sign-up">
+                Sign Up
+              </NavLink>
+            </li>
+          </>
+        ) : (
+          <li>
+            <NavLink
+              onClick={() => {
+                //log out here
+                close()
+              }}
+              activeClassName="current"
+              to="/sign-in"
+            >
+              Log Out
+            </NavLink>
+          </li>
+        )}
       </ul>
     </div>
   )

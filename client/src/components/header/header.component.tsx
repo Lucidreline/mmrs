@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Popup from 'reactjs-popup'
@@ -6,6 +6,8 @@ import BurgerIcon from './burger-icon.component'
 import Menu from './menu.component'
 
 import './header.styles.scss'
+import { IUser } from '../../utils/types'
+import fetchCurrentUser from '../../utils/fetch-current-user'
 
 const contentStyle = {
   background: 'rgba(255,255,255,0)',
@@ -14,6 +16,17 @@ const contentStyle = {
 }
 
 const Header = () => {
+  const [currentUser, setcurrentUser] = useState<IUser>()
+
+  useEffect(() => {
+    const initCurrentUser = async () => {
+      const currentUser = await fetchCurrentUser()
+      setcurrentUser(currentUser)
+    }
+
+    initCurrentUser()
+  })
+
   return (
     <nav id="nav-bar" className="container">
       <div className="logo-container">
@@ -31,7 +44,7 @@ const Header = () => {
               closeOnDocumentClick={false}
               trigger={(open) => <BurgerIcon open={open} />}
             >
-              {(close: any) => <Menu close={close} />}
+              {(close: any) => <Menu close={close} currentUser={currentUser} />}
             </Popup>
 
             <hr />

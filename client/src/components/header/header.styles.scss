@@ -88,13 +88,28 @@
   cursor: pointer;
   transition: 0.25s ease-out;
 
+  &#menu-username {
+    color: $accentColor2;
+    font-weight: 500;
+    font-size: 2.4rem;
+    cursor: default;
+
+    &:hover {
+      transform: scale(1);
+    }
+
+    hr {
+      width: 35%;
+      margin: auto;
+    }
+  }
+
   a {
     transition: inherit;
   }
 }
 .menu li:hover {
   transform: scale(1.2);
-  color: $accentColor3 !important;
 
   a {
     color: $accentColor2 !important;
