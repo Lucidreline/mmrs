@@ -12,7 +12,7 @@ import connectDB from './utils/connectDB'
 import { router as adventuresRouter } from './routes/adventures'
 import { router as locationsRouter } from './routes/locations'
 import { guestUser, router as usersRouter } from './routes/users'
-import guestSignIn from './middlewares/guest-sign-in'
+import guestSignInByDefault from './middlewares/guest-sign-in'
 
 connectDB()
 
@@ -42,7 +42,7 @@ app.use(
   }),
 )
 
-app.use(guestSignIn)
+app.use(guestSignInByDefault)
 
 // routes
 app.use('/api/adventures', adventuresRouter)

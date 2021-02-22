@@ -2,6 +2,7 @@ import { Router, Request } from 'express'
 import User from '../models/User'
 import bycript from 'bcryptjs'
 import config from 'config'
+import { signInGuest } from '../middlewares/guest-sign-in'
 
 const router = Router()
 
@@ -72,6 +73,15 @@ router.post('/sign-in', async (req, res) => {
   }
   req.session.user = dataToSendBack
   res.json(dataToSendBack)
+})
+
+router.post('/log-out', async (req, res) => {
+  const guest = await User.findOne({
+    username: config.get('guestUser.username'),
+  })
+  const { _id, username, email } = guest
+  req.session.user = { _id, username, email }
+  res.json({ _id, username, email }).status(200)
 })
 
 export { router }

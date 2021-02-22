@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { IUser } from '../../utils/types'
@@ -58,9 +59,10 @@ const menu = ({ close, currentUser }: IProps) => {
         ) : (
           <li>
             <NavLink
-              onClick={() => {
-                //log out here
-                close()
+              onClick={async () => {
+                await axios
+                  .post(`${process.env.REACT_APP_API_ORIGIN}/api/users/log-out`)
+                  .then(() => close())
               }}
               activeClassName="current"
               to="/sign-in"
