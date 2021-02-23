@@ -3,6 +3,7 @@ import React, { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Btn from '../../btn/btn.component'
 import GuestSignInMessage from '../../guest-signed-in-message/guest-sign-in-message.component'
+import Header from '../../header/header.component'
 import Input from '../../input/input.component'
 import Message from '../../message/message.component'
 
@@ -52,33 +53,36 @@ const SignInPage = () => {
   }
 
   return (
-    <div className="sign-in-page">
-      <h2 className="page-title">Sign In</h2>
-      <GuestSignInMessage />
-      <Message msg={ErrorMsg} status="error" />
-      <form className="sign-in-form container" onSubmit={handleSubmit}>
-        <Input
-          activated={FormInputs.username.length > 0 ? true : false}
-          value={FormInputs.username}
-          type="text"
-          name="username"
-          placeholder="Username"
-          handleChange={handleChange}
-        />
+    <>
+      <Header />
+      <div className="sign-in-page">
+        <h2 className="page-title">Sign In</h2>
+        <GuestSignInMessage />
+        <Message msg={ErrorMsg} status="error" />
+        <form className="sign-in-form container" onSubmit={handleSubmit}>
+          <Input
+            activated={FormInputs.username.length > 0 ? true : false}
+            value={FormInputs.username}
+            type="text"
+            name="username"
+            placeholder="Username"
+            handleChange={handleChange}
+          />
 
-        <Input
-          activated={FormInputs.password.length > 0 ? true : false}
-          value={FormInputs.password}
-          type="password"
-          name="password"
-          placeholder="Password"
-          handleChange={handleChange}
-        />
-        <Btn size="lg" type="submit" className="needs-margin-top">
-          Sign In
-        </Btn>
-      </form>
-    </div>
+          <Input
+            activated={FormInputs.password.length > 0 ? true : false}
+            value={FormInputs.password}
+            type="password"
+            name="password"
+            placeholder="Password"
+            handleChange={handleChange}
+          />
+          <Btn size="lg" type="submit" className="needs-margin-top">
+            Sign In
+          </Btn>
+        </form>
+      </div>
+    </>
   )
 }
 

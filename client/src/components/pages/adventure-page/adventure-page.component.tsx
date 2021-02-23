@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { formatDateFromString } from '../../../utils/functions'
 import { IAdventure, ILocation } from '../../../utils/types'
+import Header from '../../header/header.component'
 import ThumbnailList from '../../thumbnail-list/thumbnail-list.component'
 
 import './adventurePage.styles.scss'
@@ -40,18 +41,21 @@ const AdventurePage = () => {
   }, [adventureId])
 
   return (
-    <div className="container adventure-page">
-      <h2 className="page-title">{Adventure?.name}</h2>
-      <p className="description">{Adventure?.description}</p>
-      <Link to={`/location/${Location?._id}`}>
-        <span className="location-link">{Location?.name}</span>
-      </Link>
-      <span className="date">{formatDateFromString(Adventure?.date)}</span>
+    <>
+      <Header />
+      <div className="container adventure-page">
+        <h2 className="page-title">{Adventure?.name}</h2>
+        <p className="description">{Adventure?.description}</p>
+        <Link to={`/location/${Location?._id}`}>
+          <span className="location-link">{Location?.name}</span>
+        </Link>
+        <span className="date">{formatDateFromString(Adventure?.date)}</span>
 
-      <ThumbnailList
-        imageUrls={Adventure !== undefined ? Adventure.pictures : []}
-      />
-    </div>
+        <ThumbnailList
+          imageUrls={Adventure !== undefined ? Adventure.pictures : []}
+        />
+      </div>
+    </>
   )
 }
 

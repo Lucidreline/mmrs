@@ -2,7 +2,6 @@ import { Router, Request } from 'express'
 import User from '../models/User'
 import bycript from 'bcryptjs'
 import config from 'config'
-import { signInGuest } from '../middlewares/guest-sign-in'
 
 const router = Router()
 
@@ -15,12 +14,18 @@ declare module 'express-session' {
 
 router.get('/current-user', async (req, res) => {
   try {
-    const { username, email, adventures, location, pinPoints } = await req
-      .session.user
+    const {
+      username,
+      email,
+      adventures,
+      location,
+      pinPoints,
+    } = await User.findById(req.session.user._id)
+    console.log('current', req.session.user)
 
-    res.json({ username, email, adventures, location, pinPoints }).status(200)
+    res.json({ username, email, adventures, location, pinPoints })
   } catch (err) {
-    res.json({ err: 'Error getting current user.' }).status(500)
+    res.json({ err: 'Error getting current user.' })
   }
 })
 
@@ -81,6 +86,7 @@ router.post('/log-out', async (req, res) => {
   })
   const { _id, username, email } = guest
   req.session.user = { _id, username, email }
+  console.log('session', req.session.user)
   res.json({ _id, username, email }).status(200)
 })
 

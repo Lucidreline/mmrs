@@ -23,12 +23,10 @@ export const guestExsists = async () => {
   try {
     const currentUser = await fetchCurrentUser()
 
-      return currentUser.username === 'Guest'? true : false
-    
+    return currentUser.username === 'Guest' ? true : false
   } catch (error) {
     return false
   }
-       
-  }
+}
 
 export default fetchCurrentUser

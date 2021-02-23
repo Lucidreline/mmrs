@@ -42,8 +42,6 @@ app.use(
   }),
 )
 
-app.use(guestSignInByDefault)
-
 // routes
 app.use('/api/adventures', adventuresRouter)
 app.use('/api/locations', locationsRouter)
@@ -56,7 +54,7 @@ app.get('/', (req, res) => {
 // serve static assets in front end
 app.use(express.static('../client/build'))
 
-app.get('/map', (req, res) => {
+app.get('/map', guestSignInByDefault, (req, res) => {
   res.setHeader(
     'Content-Security-Policy',
     "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';",
@@ -67,11 +65,12 @@ app.get('/map', (req, res) => {
   )
 })
 
-app.get('*', (req, res) => {
+app.get('*', guestSignInByDefault, (req, res) => {
   res.setHeader(
     'Content-Security-Policy',
     "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';",
   )
+
   res.sendFile(
     path.resolve(__dirname, '../', '../', 'client', 'build', 'index.html'),
   )

@@ -5,6 +5,7 @@ import { IAdventure } from '../../../utils/types'
 import SearchBar from '../../search-bar/search-bar.component'
 import { formatDateFromString } from '../../../utils/functions'
 import GuestSignInMessage from '../../guest-signed-in-message/guest-sign-in-message.component'
+import Header from '../../header/header.component'
 
 const AdventuresPage = () => {
   const [Adventures, setAdventures] = useState<IAdventure[]>()
@@ -12,6 +13,7 @@ const AdventuresPage = () => {
 
   useEffect(() => {
     async function fetchlocation() {
+      console.log('huh')
       const responce = await axios.get(
         `${process.env.REACT_APP_API_ORIGIN}/api/adventures`,
       )
@@ -32,17 +34,20 @@ const AdventuresPage = () => {
   )
 
   return (
-    <div className="container">
-      <h2 className="page-title">Adventures</h2>
-      <GuestSignInMessage />
-      <SearchBar
-        placeholder="Search"
-        handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setSearchField(e.target.value)
-        }
-      />
-      <CardGrid adventures={filteredAdventures} />
-    </div>
+    <>
+      <Header />
+      <div className="container">
+        <h2 className="page-title">Adventures</h2>
+        <GuestSignInMessage />
+        <SearchBar
+          placeholder="Search"
+          handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearchField(e.target.value)
+          }
+        />
+        <CardGrid adventures={filteredAdventures} />
+      </div>
+    </>
   )
 }
 

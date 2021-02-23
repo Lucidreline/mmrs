@@ -5,6 +5,7 @@ import CardGrid from '../../card-grid/card-grid.component'
 import { IAdventure, ILocation } from '../../../utils/types'
 
 import './location-page.styles.scss'
+import Header from '../../header/header.component'
 
 export const LocationPage = () => {
   const [Location, setLocation] = useState<ILocation>()
@@ -29,13 +30,16 @@ export const LocationPage = () => {
     fetchlocation()
   }, [locationId])
   return (
-    <div className="container location-page">
-      <h2 className="page-title">{Location?.name}</h2>
-      <span className="coordinates">
-        ({Location?.lat.toFixed(2)}, {Location?.lon.toFixed(2)})
-      </span>
+    <>
+      <Header />
+      <div className="container location-page">
+        <h2 className="page-title">{Location?.name}</h2>
+        <span className="coordinates">
+          ({Location?.lat.toFixed(2)}, {Location?.lon.toFixed(2)})
+        </span>
 
-      <CardGrid adventures={Adventures} />
-    </div>
+        <CardGrid adventures={Adventures} />
+      </div>
+    </>
   )
 }

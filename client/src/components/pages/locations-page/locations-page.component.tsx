@@ -4,6 +4,7 @@ import CardGrid from '../../card-grid/card-grid.component'
 import { ILocation } from '../../../utils/types'
 import SearchBar from '../../search-bar/search-bar.component'
 import GuestSignInMessage from '../../guest-signed-in-message/guest-sign-in-message.component'
+import Header from '../../header/header.component'
 
 const LocationsPage = () => {
   const [Locations, setLocations] = useState<ILocation[]>()
@@ -24,17 +25,20 @@ const LocationsPage = () => {
   )
 
   return (
-    <div className="container">
-      <h2 className="page-title">Locations</h2>
-      <GuestSignInMessage />
-      <SearchBar
-        placeholder="Search"
-        handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setSearchField(e.target.value)
-        }
-      />
-      <CardGrid locations={filteredLocations} />
-    </div>
+    <>
+      <Header />
+      <div className="container">
+        <h2 className="page-title">Locations</h2>
+        <GuestSignInMessage />
+        <SearchBar
+          placeholder="Search"
+          handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearchField(e.target.value)
+          }
+        />
+        <CardGrid locations={filteredLocations} />
+      </div>
+    </>
   )
 }
 

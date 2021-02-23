@@ -3,6 +3,7 @@ import React, { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Btn from '../../btn/btn.component'
 import GuestSignInMessage from '../../guest-signed-in-message/guest-sign-in-message.component'
+import Header from '../../header/header.component'
 import Input from '../../input/input.component'
 import Message from '../../message/message.component'
 
@@ -55,41 +56,44 @@ const SignUpPage = () => {
   }
 
   return (
-    <div className="sign-up-page">
-      <h2 className="page-title">Sign Up</h2>
-      <GuestSignInMessage />
-      <form className="sign-in-form container" onSubmit={handleSubmit}>
-        <Message msg={ErrorMsg} status="error" />
+    <>
+      <Header />
+      <div className="sign-up-page">
+        <h2 className="page-title">Sign Up</h2>
+        <GuestSignInMessage />
+        <form className="sign-in-form container" onSubmit={handleSubmit}>
+          <Message msg={ErrorMsg} status="error" />
 
-        <Input
-          activated={FormInputs.username.length > 0 ? true : false}
-          value={FormInputs.username}
-          type="text"
-          name="username"
-          placeholder="Username"
-          handleChange={handleChange}
-        />
-        <Input
-          activated={FormInputs.email.length > 0 ? true : false}
-          value={FormInputs.email}
-          type="email"
-          name="email"
-          placeholder="Email"
-          handleChange={handleChange}
-        />
-        <Input
-          activated={FormInputs.password.length > 0 ? true : false}
-          value={FormInputs.password}
-          type="password"
-          name="password"
-          placeholder="Password"
-          handleChange={handleChange}
-        />
-        <Btn size="lg" type="submit" className="needs-margin-top">
-          Sign Up
-        </Btn>
-      </form>
-    </div>
+          <Input
+            activated={FormInputs.username.length > 0 ? true : false}
+            value={FormInputs.username}
+            type="text"
+            name="username"
+            placeholder="Username"
+            handleChange={handleChange}
+          />
+          <Input
+            activated={FormInputs.email.length > 0 ? true : false}
+            value={FormInputs.email}
+            type="email"
+            name="email"
+            placeholder="Email"
+            handleChange={handleChange}
+          />
+          <Input
+            activated={FormInputs.password.length > 0 ? true : false}
+            value={FormInputs.password}
+            type="password"
+            name="password"
+            placeholder="Password"
+            handleChange={handleChange}
+          />
+          <Btn size="lg" type="submit" className="needs-margin-top">
+            Sign Up
+          </Btn>
+        </form>
+      </div>
+    </>
   )
 }
 

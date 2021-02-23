@@ -16,7 +16,6 @@ import SignInPage from './components/pages/sign-in-page/sign-in-page.component'
 const App = () => {
   return (
     <div>
-      <Header />
       <Switch>
         <Route exact path="/">
           <Redirect to="/map" />

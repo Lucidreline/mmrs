@@ -8,6 +8,7 @@ import Menu from './menu.component'
 import './header.styles.scss'
 import { IUser } from '../../utils/types'
 import fetchCurrentUser from '../../utils/fetch-current-user'
+import axios from 'axios'
 
 const contentStyle = {
   background: 'rgba(255,255,255,0)',
@@ -20,12 +21,15 @@ const Header = () => {
 
   useEffect(() => {
     const initCurrentUser = async () => {
-      const currentUser = await fetchCurrentUser()
+      console.log('Axios request')
+      const responce = await axios.get(
+        `${process.env.REACT_APP_API_ORIGIN}/api/users/current-user`,
+      )
+      const currentUser: IUser = responce.data
       setcurrentUser(currentUser)
     }
-
     initCurrentUser()
-  })
+  }, [])
 
   return (
     <nav id="nav-bar" className="container">
@@ -42,7 +46,9 @@ const Header = () => {
               overlayStyle={{ background: 'rgba(255,255,255,0.98' }}
               contentStyle={contentStyle}
               closeOnDocumentClick={false}
-              trigger={(open) => <BurgerIcon open={open} />}
+              trigger={(open) => {
+                return <BurgerIcon open={open} />
+              }}
             >
               {(close: any) => <Menu close={close} currentUser={currentUser} />}
             </Popup>
