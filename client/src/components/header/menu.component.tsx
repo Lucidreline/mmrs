@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { IUser } from '../../utils/types'
 
 interface IProps {
@@ -8,7 +8,8 @@ interface IProps {
   currentUser?: IUser
 }
 
-const menu = ({ close, currentUser }: IProps) => {
+const Menu = ({ close, currentUser }: IProps) => {
+  const history = useHistory()
   return (
     <div className="menu">
       <ul>
@@ -57,18 +58,17 @@ const menu = ({ close, currentUser }: IProps) => {
             </li>
           </>
         ) : (
-          <li>
-            <NavLink
-              onClick={async () => {
-                await axios
-                  .post(`${process.env.REACT_APP_API_ORIGIN}/api/users/log-out`)
-                  .then(() => close())
-              }}
-              activeClassName="current"
-              to="/sign-in"
-            >
-              Log Out
-            </NavLink>
+          <li
+            onClick={async () => {
+              await axios
+                .post(`${process.env.REACT_APP_API_ORIGIN}/api/users/log-out`)
+                .then(() => {
+                  history.push('/sign-in')
+                  //close()
+                })
+            }}
+          >
+            Log Out
           </li>
         )}
       </ul>
@@ -76,4 +76,4 @@ const menu = ({ close, currentUser }: IProps) => {
   )
 }
 
-export default menu
+export default Menu

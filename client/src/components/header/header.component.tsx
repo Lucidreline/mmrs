@@ -22,10 +22,7 @@ const Header = () => {
   useEffect(() => {
     const initCurrentUser = async () => {
       console.log('Axios request')
-      const responce = await axios.get(
-        `${process.env.REACT_APP_API_ORIGIN}/api/users/current-user`,
-      )
-      const currentUser: IUser = responce.data
+      const currentUser = await fetchCurrentUser()
       setcurrentUser(currentUser)
     }
     initCurrentUser()
