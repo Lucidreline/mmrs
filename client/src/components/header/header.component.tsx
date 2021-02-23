@@ -8,7 +8,6 @@ import Menu from './menu.component'
 import './header.styles.scss'
 import { IUser } from '../../utils/types'
 import fetchCurrentUser from '../../utils/fetch-current-user'
-import axios from 'axios'
 
 const contentStyle = {
   background: 'rgba(255,255,255,0)',
