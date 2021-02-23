@@ -39,10 +39,6 @@ router.get('/id', async (req, res) => {
     )
 
     if (adventure.createdBy.toString() !== req.session.user._id) {
-      console.log('huh')
-      console.log(adventure.createdBy)
-      console.log(req.session)
-
       return res.json({ err: 'Unathorized.' })
     }
 

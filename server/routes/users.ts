@@ -21,7 +21,6 @@ router.get('/current-user', async (req, res) => {
       location,
       pinPoints,
     } = await User.findById(req.session.user._id)
-    console.log('current', req.session.user)
 
     res.json({ username, email, adventures, location, pinPoints })
   } catch (err) {
@@ -55,7 +54,6 @@ router.post('/sign-up', async (req: Request, res) => {
     req.session.user = dataToSendBack
     res.json(dataToSendBack).status(200)
   } catch (err) {
-    console.log('hi')
     res.status(500).json({ err: err.message })
   }
 })
@@ -86,7 +84,6 @@ router.post('/log-out', async (req, res) => {
   })
   const { _id, username, email } = guest
   req.session.user = { _id, username, email }
-  console.log('session', req.session.user)
   res.json({ _id, username, email }).status(200)
 })
 

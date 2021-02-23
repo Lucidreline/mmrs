@@ -7,7 +7,6 @@ const guestSignInByDefault = async (
   res: Response,
   next: NextFunction,
 ) => {
-  console.log('Middleware called')
   if (!req.session.user) {
     await signInGuest(req)
   }

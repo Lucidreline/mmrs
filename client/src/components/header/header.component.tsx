@@ -21,7 +21,6 @@ const Header = () => {
 
   useEffect(() => {
     const initCurrentUser = async () => {
-      console.log('Axios request')
       const currentUser = await fetchCurrentUser()
       setcurrentUser(currentUser)
     }

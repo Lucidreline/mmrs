@@ -13,7 +13,6 @@ const AdventuresPage = () => {
 
   useEffect(() => {
     async function fetchlocation() {
-      console.log('huh')
       const responce = await axios.get(
         `${process.env.REACT_APP_API_ORIGIN}/api/adventures`,
       )

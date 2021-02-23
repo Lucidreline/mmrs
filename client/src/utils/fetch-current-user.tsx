@@ -11,7 +11,6 @@ const fetchCurrentUser = async () => {
       axios
         .get(`${process.env.REACT_APP_API_ORIGIN}/api/users/current-user`)
         .then((res: IResponce) => {
-          console.log(res.data)
           resolve(res.data)
         })
     } catch (err) {
