@@ -1,10 +1,8 @@
 import mongoose from 'mongoose'
 
 export interface IPinPoint extends mongoose.Document {
-  coordinates: {
-    lat: number
-    lon: number
-  }
+  lat: number
+  lon: number
 
   msg: string
 
@@ -12,7 +10,8 @@ export interface IPinPoint extends mongoose.Document {
 }
 
 const PinPointSchema = new mongoose.Schema({
-  coordinates: { lat: Number, lon: Number },
+  lat: Number,
+  lon: Number,
 
   msg: String,
 

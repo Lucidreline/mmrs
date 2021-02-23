@@ -11,10 +11,15 @@ import {
 import axios from 'axios'
 
 import './map.styles.scss'
+import { IPinPoint } from '../../utils/types'
 
 const Map = () => {
   const [Locations, setLocation] = useState([
     { _id: '22', lon: 34.8, lat: -118.3, radius: 100000 },
+  ])
+
+  const [PinPoints, setPinPoints] = useState<IPinPoint[]>([
+    { lat: 0, lon: 0, msg: '' },
   ])
 
   const urlArr = useLocation().pathname.split('/')
@@ -44,6 +49,13 @@ const Map = () => {
       setLocation(responce.data)
     }
 
+    async function fetchPinPoints() {
+      const responce = await axios.get(
+        `${process.env.REACT_APP_API_ORIGIN}/api/pin-points`,
+      )
+      setPinPoints(responce.data)
+    }
+    fetchPinPoints()
     fetchLocations()
   }, [])
 
@@ -76,9 +88,11 @@ const Map = () => {
           url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}{r}.png"
         />
 
-        <Marker position={[35.365055, -117.983115]}>
-          <Popup>Our First Kiss</Popup>
-        </Marker>
+        {PinPoints.map(({ lat, lon, msg }) => (
+          <Marker position={[lat, lon]}>
+            <Popup>{msg}</Popup>
+          </Marker>
+        ))}
 
         {Locations.map(({ _id, lat, lon, radius }) => (
           <Circle

@@ -1,15 +1,10 @@
 import axios from 'axios'
 import React, { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { IPinPoint } from '../../../utils/types'
 import Btn from '../../btn/btn.component'
 import Header from '../../header/header.component'
 import Input from '../../input/input.component'
-
-interface IPinPoint {
-  lat: number
-  lon: number
-  msg: string
-}
 
 const PinPointForm = () => {
   const history = useHistory()
@@ -31,7 +26,8 @@ const PinPointForm = () => {
 
     const { lat, lon, msg } = PinPoint
     const pinPoint = {
-      coordinates: { lat, lon },
+      lat,
+      lon,
       msg,
     }
 

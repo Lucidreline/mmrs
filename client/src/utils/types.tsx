@@ -23,3 +23,9 @@ export interface IUser {
   locations: string[]
   pinPoints: string[]
 }
+
+export interface IPinPoint {
+  lat: number
+  lon: number
+  msg: string
+}
