@@ -10,7 +10,7 @@ router.post('/new', async (req, res) => {
   const user = await User.findById(req.session.user._id)
   pinPoint.createdBy = user._id
 
-  const createdPinPoint = await pinPoint.create(pinPoint)
+  const createdPinPoint = await PinPoint.create(pinPoint)
 
   user.pinPoints.push(createdPinPoint._id)
   await user.save()
