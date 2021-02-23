@@ -12,6 +12,8 @@ import connectDB from './utils/connectDB'
 import { router as adventuresRouter } from './routes/adventures'
 import { router as locationsRouter } from './routes/locations'
 import { guestUser, router as usersRouter } from './routes/users'
+import { router as pinPointsRouter } from './routes/pinPoints'
+
 import guestSignInByDefault from './middlewares/guest-sign-in'
 
 connectDB()
@@ -45,6 +47,7 @@ app.use(
 // routes
 app.use('/api/adventures', adventuresRouter)
 app.use('/api/locations', locationsRouter)
+app.use('/api/pin-points', pinPointsRouter)
 app.use('/api/users', usersRouter)
 
 app.get('/', (req, res) => {
