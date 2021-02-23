@@ -11,6 +11,7 @@ import AdventureForm from './components/adventure-form/adventure-form.component'
 import AdventurePage from './components/pages/adventure-page/adventure-page.component'
 import SignUpPage from './components/pages/sign-up-page/sign-up-page.component'
 import SignInPage from './components/pages/sign-in-page/sign-in-page.component'
+import PinPointForm from './components/pages/pin-point-form/pin-point-form.component'
 
 const App = () => {
   return (
@@ -27,6 +28,8 @@ const App = () => {
 
         <Route path="/location" component={LocationPage} />
         <Route exact path="/locations" component={LocationsPage} />
+
+        <Route exact path="/pin-point-form" component={PinPointForm} />
 
         <Route exact path="/sign-up" component={SignUpPage} />
         <Route exact path="/sign-in" component={SignInPage} />
