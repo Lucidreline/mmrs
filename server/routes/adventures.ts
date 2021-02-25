@@ -2,6 +2,7 @@ import { Router } from 'express'
 import config from 'config'
 import fetch from 'node-fetch'
 import axios from 'axios'
+import mongoose from 'mongoose'
 
 const router = Router()
 
@@ -63,7 +64,16 @@ router.get('/id', async (req, res) => {
 router.post('/new', async (req, res) => {
   const { adventure, lon, lat } = req.body
 
-  const currentUser = await User.findById(req.session.user._id)
+  const currentUser: IUser = await User.findById(req.session.user._id)
+  // deletes an old adventure if guest is signed in
+  const adventuresAllowed = 3
+  if (currentUser.username === config.get('guestUser.username')) {
+    if (currentUser.adventures.length >= adventuresAllowed) {
+      // delete the oldest user
+      console.log('gonna delete now')
+      await deleteAdventure(req, currentUser.adventures[0].toString())
+    }
+  }
 
   const getMapImageFileStr = () => {
     return new Promise<string>(async (resolve) => {
@@ -178,25 +188,31 @@ router.post('/new', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
-  // delete adventure from database
-  const deletedAdventure: IAdventure = await Adventure.findByIdAndRemove(
-    req.params.id,
-  )
+  await deleteAdventure(req, req.params.id).then(() => {
+    res.json({ msg: 'success' })
+  })
+})
+
+export { router }
+
+const deleteAdventure = async (req: any, _id: string) => {
+  const adventureToDelete = await Adventure.findById(_id)
 
   // delete adventure id from the user
   const currentUser: IUser = await User.findById(req.session.user._id)
   const indexOfAdventureID = currentUser.adventures.indexOf(
-    deletedAdventure._id,
+    adventureToDelete._id,
   )
+
   if (indexOfAdventureID > -1) {
     currentUser.adventures.splice(indexOfAdventureID, 1)
   }
+
   await currentUser.save()
 
   // delete photos from adventure stored in cloudinary
-  await deleteImagesFromCloudinary(deletedAdventure.pictures)
+  await deleteImagesFromCloudinary(adventureToDelete.pictures)
 
-  res.json({ msg: 'success' })
-})
-
-export { router }
+  // delete adventure from database
+  await Adventure.deleteOne({ _id: _id })
+}
