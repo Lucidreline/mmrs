@@ -9,7 +9,7 @@ import Adventure, { IAdventure } from '../models/Adventure'
 import Location, { ILocation } from '../models/Location'
 import User, { IUser } from '../models/User'
 
-import Cloudinary from '../utils/cloudinary'
+import Cloudinary, { deleteImagesFromCloudinary } from '../utils/cloudinary'
 
 const distance = (point1: number[], point2: number[]) => {
   return Math.sqrt(
@@ -175,6 +175,28 @@ router.post('/new', async (req, res) => {
   } catch (err) {
     res.json({ err: err.message }).status(500)
   }
+})
+
+router.delete('/:id', async (req, res) => {
+  // delete adventure from database
+  const deletedAdventure: IAdventure = await Adventure.findByIdAndRemove(
+    req.params.id,
+  )
+
+  // delete adventure id from the user
+  const currentUser: IUser = await User.findById(req.session.user._id)
+  const indexOfAdventureID = currentUser.adventures.indexOf(
+    deletedAdventure._id,
+  )
+  if (indexOfAdventureID > -1) {
+    currentUser.adventures.splice(indexOfAdventureID, 1)
+  }
+  await currentUser.save()
+
+  // delete photos from adventure stored in cloudinary
+  await deleteImagesFromCloudinary(deletedAdventure.pictures)
+
+  res.json({ msg: 'success' })
 })
 
 export { router }
