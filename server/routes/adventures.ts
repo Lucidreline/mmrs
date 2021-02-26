@@ -11,6 +11,7 @@ import Location, { ILocation } from '../models/Location'
 import User, { IUser } from '../models/User'
 
 import Cloudinary, { deleteImagesFromCloudinary } from '../utils/cloudinary'
+import { deleteLocation } from './locations'
 
 const distance = (point1: number[], point2: number[]) => {
   return Math.sqrt(
@@ -200,19 +201,38 @@ const deleteAdventure = async (req: any, _id: string) => {
 
   // delete adventure id from the user
   const currentUser: IUser = await User.findById(req.session.user._id)
-  const indexOfAdventureID = currentUser.adventures.indexOf(
+  const indexOfAdventureIDInUser = currentUser.adventures.indexOf(
     adventureToDelete._id,
   )
 
-  if (indexOfAdventureID > -1) {
-    currentUser.adventures.splice(indexOfAdventureID, 1)
+  if (indexOfAdventureIDInUser > -1) {
+    currentUser.adventures.splice(indexOfAdventureIDInUser, 1)
   }
 
   await currentUser.save()
 
+  // delete adventure id from the location
+  const adventureLocation: ILocation = await Location.findById(
+    adventureToDelete.location,
+  )
+  // if the location is now empty, delete it
+  if (adventureLocation.adventures.length < 2) {
+    // delete location
+    console.log('deleting location')
+    deleteLocation(req, adventureLocation._id.toString())
+  } else {
+    // just remove location id
+    console.log('removing id')
+    const indexOfAdventureIDInLocation = adventureLocation.adventures.indexOf(
+      adventureToDelete._id,
+    )
+
+    if (indexOfAdventureIDInLocation > -1) {
+      adventureLocation.adventures.splice(indexOfAdventureIDInLocation, 1)
+    }
+  }
+
   // delete photos from adventure stored in cloudinary
   await deleteImagesFromCloudinary(adventureToDelete.pictures)
-
-  // delete adventure from database
   await Adventure.deleteOne({ _id: _id })
 }
