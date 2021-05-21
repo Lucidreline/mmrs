@@ -1,8 +1,6 @@
 import { Router } from 'express'
 import Adventure from '../models/Adventure'
 import Location from '../models/Location'
-import User, { IUser } from '../models/User'
-import { deleteImagesFromCloudinary } from '../utils/cloudinary'
 
 const router = Router()
 
@@ -35,28 +33,3 @@ router.get('/id-and-adventures', async (req, res) => {
 })
 
 export { router }
-export const deleteLocation = async (req: any, _id: string) => {
-  try {
-    const locationToDelete = await Location.findById(_id)
-    console.log('location to delete', locationToDelete)
-
-    // delete location id from user
-    const currentUser: IUser = await User.findById(req.session.user._id)
-    const indexOfLocationID = currentUser.locations.indexOf(
-      locationToDelete._id,
-    )
-
-    if (indexOfLocationID > -1) {
-      currentUser.adventures.splice(indexOfLocationID, 1)
-    }
-
-    await currentUser.save()
-
-    // delete map photo stored in cloudinary
-    await deleteImagesFromCloudinary([locationToDelete.mapImage])
-
-    await Location.deleteOne({ _id: _id })
-  } catch (error) {
-    console.log(error)
-  }
-}

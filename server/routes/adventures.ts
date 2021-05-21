@@ -2,7 +2,6 @@ import { Router } from 'express'
 import config from 'config'
 import fetch from 'node-fetch'
 import axios from 'axios'
-import mongoose from 'mongoose'
 
 const router = Router()
 
@@ -11,7 +10,6 @@ import Location, { ILocation } from '../models/Location'
 import User, { IUser } from '../models/User'
 
 import Cloudinary, { deleteImagesFromCloudinary } from '../utils/cloudinary'
-import { deleteLocation } from './locations'
 
 const distance = (point1: number[], point2: number[]) => {
   return Math.sqrt(
@@ -65,16 +63,7 @@ router.get('/id', async (req, res) => {
 router.post('/new', async (req, res) => {
   const { adventure, lon, lat } = req.body
 
-  const currentUser: IUser = await User.findById(req.session.user._id)
-  // deletes an old adventure if guest is signed in
-  const adventuresAllowed = 3
-  if (currentUser.username === config.get('guestUser.username')) {
-    if (currentUser.adventures.length >= adventuresAllowed) {
-      // delete the oldest user
-      console.log('gonna delete now')
-      await deleteAdventure(req, currentUser.adventures[0].toString())
-    }
-  }
+  const currentUser = await User.findById(req.session.user._id)
 
   const getMapImageFileStr = () => {
     return new Promise<string>(async (resolve) => {
@@ -189,50 +178,25 @@ router.post('/new', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
-  await deleteAdventure(req, req.params.id).then(() => {
-    res.json({ msg: 'success' })
-  })
-})
-
-export { router }
-
-const deleteAdventure = async (req: any, _id: string) => {
-  const adventureToDelete = await Adventure.findById(_id)
+  // delete adventure from database
+  const deletedAdventure: IAdventure = await Adventure.findByIdAndRemove(
+    req.params.id,
+  )
 
   // delete adventure id from the user
   const currentUser: IUser = await User.findById(req.session.user._id)
-  const indexOfAdventureIDInUser = currentUser.adventures.indexOf(
-    adventureToDelete._id,
+  const indexOfAdventureID = currentUser.adventures.indexOf(
+    deletedAdventure._id,
   )
-
-  if (indexOfAdventureIDInUser > -1) {
-    currentUser.adventures.splice(indexOfAdventureIDInUser, 1)
+  if (indexOfAdventureID > -1) {
+    currentUser.adventures.splice(indexOfAdventureID, 1)
   }
-
   await currentUser.save()
 
-  // delete adventure id from the location
-  const adventureLocation: ILocation = await Location.findById(
-    adventureToDelete.location,
-  )
-  // if the location is now empty, delete it
-  if (adventureLocation.adventures.length < 2) {
-    // delete location
-    console.log('deleting location')
-    deleteLocation(req, adventureLocation._id.toString())
-  } else {
-    // just remove location id
-    console.log('removing id')
-    const indexOfAdventureIDInLocation = adventureLocation.adventures.indexOf(
-      adventureToDelete._id,
-    )
-
-    if (indexOfAdventureIDInLocation > -1) {
-      adventureLocation.adventures.splice(indexOfAdventureIDInLocation, 1)
-    }
-  }
-
   // delete photos from adventure stored in cloudinary
-  await deleteImagesFromCloudinary(adventureToDelete.pictures)
-  await Adventure.deleteOne({ _id: _id })
-}
+  await deleteImagesFromCloudinary(deletedAdventure.pictures)
+
+  res.json({ msg: 'success' })
+})
+
+export { router }
